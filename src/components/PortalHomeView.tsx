@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   GraduationCap,
   Building2,
   Globe,
   Award,
   ChevronRight,
+  ChevronLeft,
+  Pause,
+  Play,
   Search,
   FileText,
   CheckCircle2,
@@ -102,6 +105,21 @@ export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
     hasBonafide: true,
   });
   const [eligibilityResult, setEligibilityResult] = useState<string | null>(null);
+
+  // Dynamic Government Campaign Banner State (Auto-play carousel with pause on hover)
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isAutoPlayPaused, setIsAutoPlayPaused] = useState(false);
+
+  useEffect(() => {
+    if (isAutoPlayPaused) return;
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % 4);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [isAutoPlayPaused]);
+
+  const nextSlide = () => setActiveSlide((prev) => (prev + 1) % 4);
+  const prevSlide = () => setActiveSlide((prev) => (prev - 1 + 4) % 4);
 
   // All official Central ST schemes
   const allSchemes = [
@@ -755,28 +773,441 @@ export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
       </div>
 
       {/* ========================================================================= */}
-      {/* 5. OFFICIAL MoTA CAMPAIGN ADVERTISEMENT & MINISTERIAL LEADERSHIP         */}
+      {/* 5. OFFICIAL MoTA CAMPAIGN BANNER (DYNAMIC) & MINISTERIAL LEADERSHIP       */}
       {/* Matches Official Ministry of Tribal Affairs (tribal.nic.in) Portal       */}
       {/* ========================================================================= */}
       <div className="space-y-6 pt-2">
         
-        {/* A. 12-Year Tribal Development Campaign Advertisement Banner */}
-        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 shadow-xs bg-white group">
-          <div className="relative w-full overflow-hidden bg-slate-900">
-            <img
-              src="/mota-12-years-banner-hd.png"
-              alt="12 Years of Trust, Development, and Tribal Welfare - Ministry of Tribal Affairs, Government of India"
-              className="w-full h-auto object-cover object-center select-none transition-transform duration-700 group-hover:scale-[1.01]"
-            />
+        {/* A. Dynamic Interactive Government Campaign Carousel */}
+        <div 
+          className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 shadow-lg bg-slate-900 group select-none transition-all duration-300"
+          onMouseEnter={() => setIsAutoPlayPaused(true)}
+          onMouseLeave={() => setIsAutoPlayPaused(false)}
+        >
+          {/* Official Indian Tricolor Top Ribbon */}
+          <div className="h-1.5 w-full bg-gradient-to-r from-[#f37021] via-white to-[#138808] z-20 relative" />
+
+          {/* Carousel Slide Container */}
+          <div className="relative min-h-[420px] sm:min-h-[360px] md:min-h-[330px] lg:min-h-[310px] flex items-center">
+            
+            {/* SLIDE 0: 12 Years of Dedicated Governance (PM Modi Special Campaign) */}
+            <div className={`transition-opacity duration-700 w-full p-5 sm:p-7 md:p-8 ${activeSlide === 0 ? 'opacity-100 relative z-10' : 'opacity-0 absolute inset-0 pointer-events-none'}`}>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                {/* Left Content (8 Cols) */}
+                <div className="lg:col-span-8 text-white space-y-3.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="px-3 py-1 rounded-full text-[11px] font-extrabold bg-[#f37021]/20 text-amber-300 border border-amber-400/30 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                      <span>{currentLang === 'HI' ? 'विशेष राष्ट्रव्यापी अभियान' : 'SPECIAL NATIONAL CAMPAIGN'}</span>
+                    </span>
+                    <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-sky-500/10 text-sky-300 border border-sky-400/20">
+                      {currentLang === 'HI' ? 'भारत सरकार की पहल' : 'Government of India'}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-tight">
+                    {currentLang === 'HI'
+                      ? 'जनजातीय सशक्तिकरण: 12 वर्षों का अभूतपूर्व विकास एवं विश्वास'
+                      : '12 Years of Tribal Empowerment: Trust, Development & Dignity'}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-2xl font-normal">
+                    {currentLang === 'HI'
+                      ? 'माननीय प्रधानमंत्री श्री नरेंद्र मोदी के दूरदर्शी नेतृत्व में 63,843 जनजातीय गांवों का समग्र कायाकल्प, विश्वस्तरीय एकलव्य आदर्श आवासीय विद्यालय (EMRS) एवं करोड़ों जनजातीय विद्यार्थियों को सीधे बैंक खाते में पारदर्शी छात्रवृत्ति (DBT)।'
+                      : 'Under the visionary leadership of Prime Minister Shri Narendra Modi: comprehensive transformation across 63,843 tribal villages, 400+ world-class EMRS schools, and direct benefit transfer scholarships to millions of ST scholars.'}
+                  </p>
+
+                  {/* 4 Pillars Stat Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-amber-300 block">₹79,156 Cr</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'कुल बजट आवंटन' : 'Budget Outlay'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-sky-300 block">63,843</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'आच्छादित जनजातीय ग्राम' : 'Villages Covered'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-emerald-300 block">3.8 Lakh+</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'लाभान्वित विद्यार्थी' : 'Beneficiary Scholars'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-orange-300 block">400+</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'नए एकलव्य विद्यालय' : 'New EMRS Schools'}</span>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <a
+                      href="#schemes-section"
+                      className="px-4 py-2 bg-[#f37021] hover:bg-[#d95e14] text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>{currentLang === 'HI' ? 'छात्रवृत्ति योजनाएं देखें' : 'Explore ST Scholarships'}</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </a>
+                    <a
+                      href="https://tribal.nic.in"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>tribal.nic.in</span>
+                      <ExternalLink className="w-3 h-3 text-slate-300" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Right PM Modi Portrait & Dignified Quote (4 Cols) */}
+                <div className="lg:col-span-4 flex flex-col items-center justify-center">
+                  <div className="flex flex-col items-center p-3 sm:p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-xl max-w-xs w-full text-center">
+                    <div className="w-28 h-36 sm:w-32 sm:h-40 rounded-xl overflow-hidden border-2 border-amber-400 shadow-md bg-slate-800 shrink-0 mb-2">
+                      <img
+                        src="/pm-narendra-modi-passport.jpg"
+                        alt="Shri Narendra Modi - Hon'ble Prime Minister of India"
+                        className="w-full h-full object-cover object-top"
+                      />
+                    </div>
+                    <div className="text-white">
+                      <span className="text-[10px] font-bold text-amber-300 uppercase tracking-wider block">
+                        {currentLang === 'HI' ? 'माननीय प्रधानमंत्री' : "Hon'ble Prime Minister"}
+                      </span>
+                      <h4 className="text-sm font-black text-white leading-tight">
+                        {currentLang === 'HI' ? 'श्री नरेंद्र मोदी' : 'Shri Narendra Modi'}
+                      </h4>
+                      <p className="text-[10px] text-slate-300 italic mt-1.5 leading-snug px-2 border-t border-white/10 pt-1.5">
+                        {currentLang === 'HI'
+                          ? '"जब देश के जनजातीय समाज का विकास होगा, तभी भारत का सर्वांगीण विकास संभव है।"'
+                          : '"Empowerment of tribal communities is foundational for a Viksit Bharat."'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* SLIDE 1: Dharti Aaba Janjatiya Gram Utkarsh Abhiyan & PM-JANMAN */}
+            <div className={`transition-opacity duration-700 w-full p-5 sm:p-7 md:p-8 ${activeSlide === 1 ? 'opacity-100 relative z-10' : 'opacity-0 absolute inset-0 pointer-events-none'}`}>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <div className="lg:col-span-8 text-white space-y-3.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="px-3 py-1 rounded-full text-[11px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                      <span>{currentLang === 'HI' ? 'फ्लैगशिप राष्ट्रीय मिशन' : 'FLAGSHIP NATIONAL MISSION'}</span>
+                    </span>
+                    <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/15">
+                      PM-JANMAN & DA-JGUA
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-tight">
+                    {currentLang === 'HI'
+                      ? 'धरती आबा जनजातीय ग्राम उत्कर्ष अभियान एवं पीएम-जनमन'
+                      : 'PM-JANMAN & Dharti Aaba Janjatiya Gram Utkarsh Abhiyan'}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-2xl font-normal">
+                    {currentLang === 'HI'
+                      ? 'देश के 30 राज्यों एवं केंद्र शासित प्रदेशों के 549 जिलों में 63,843 जनजातीय बहुल गांवों में 25 प्रमुख हस्तक्षेपों के माध्यम से बुनियादी सुविधाओं का 100% संतृप्ति कवरेज। स्वच्छ पेयजल, पक्के आवास, सौर ऊर्जा व आजीविका संवर्धन।'
+                      : 'Reaching the unreached: Saturated coverage of 25 critical interventions across 63,843 tribal-majority villages and 75 PVTG communities across 30 States & UTs through holistic inter-ministerial convergence.'}
+                  </p>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-emerald-300 block">₹24,104 Cr</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'पीएम-जनमन आवंटन' : 'PM-JANMAN Outlay'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-teal-300 block">75 Groups</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'पीवीटीजी समुदाय' : 'PVTG Communities'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-sky-300 block">100% Saturation</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'पेयजल व विद्युतीकरण' : 'Water & Power'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-amber-300 block">5+ Crore</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'जनजातीय नागरिक' : 'Tribal Citizens'}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => setIsEligibilityOpen(true)}
+                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>{currentLang === 'HI' ? 'पीवीटीजी पात्रता जांचें' : 'Check PVTG Eligibility'}</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                    <a
+                      href="https://pmjanman.gov.in"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>pmjanman.gov.in</span>
+                      <ExternalLink className="w-3 h-3 text-slate-300" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-4 flex flex-col items-center justify-center">
+                  <div className="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center max-w-xs w-full space-y-3">
+                    <div className="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center border border-emerald-400/30">
+                      <Sparkles className="w-8 h-8 text-emerald-300" />
+                    </div>
+                    <h4 className="text-base font-bold text-white leading-tight">
+                      {currentLang === 'HI' ? 'अंतिम छोर तक विकास' : 'Last-Mile Saturation'}
+                    </h4>
+                    <p className="text-xs text-slate-200 leading-snug">
+                      {currentLang === 'HI'
+                        ? 'विशेष रूप से कमजोर जनजातीय समूहों के गांवों में पक्के आवास, स्वच्छ जल, सौर विद्युतीकरण व सड़क कनेक्टिविटी।'
+                        : 'Holistic infrastructure for Particularly Vulnerable Tribal Groups (PVTGs) living in remote, forest-fringe habitations.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* SLIDE 2: 150th Janjatiya Gaurav Varsh - Bhagwan Birsa Munda */}
+            <div className={`transition-opacity duration-700 w-full p-5 sm:p-7 md:p-8 ${activeSlide === 2 ? 'opacity-100 relative z-10' : 'opacity-0 absolute inset-0 pointer-events-none'}`}>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <div className="lg:col-span-8 text-white space-y-3.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="px-3 py-1 rounded-full text-[11px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-400/30 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                      <span>{currentLang === 'HI' ? '150वीं जयंती समारोह' : '150TH BIRTH ANNIVERSARY'}</span>
+                    </span>
+                    <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/15">
+                      15th November · Janjatiya Gaurav Divas
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-tight">
+                    {currentLang === 'HI'
+                      ? 'भगवान बिरसा मुंडा 150वीं जयंती: जनजातीय गौरव वर्ष'
+                      : 'Bhagwan Birsa Munda 150th Janjatiya Gaurav Varsh'}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-2xl font-normal">
+                    {currentLang === 'HI'
+                      ? 'भारतीय स्वतंत्रता संग्राम में जनजातीय वीरों के अदम्य बलिदान को नमन। जनजातीय भाषा (संथाली, गोंडी, ओडिया, बोडो), संस्कृति, पारंपरिक ज्ञान एवं औषधीय विरासत का राष्ट्रीय स्तर पर डिजिटलीकरण एवं संरक्षण।'
+                      : 'Honoring the courage and supreme sacrifice of tribal freedom fighters. Preserving indigenous tribal languages (Santali, Gondi, Odia, Bodo), traditions, and cultural heritage on Janjatiya Vidya Setu.'}
+                  </p>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-amber-300 block">15 Nov</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'जनजातीय गौरव दिवस' : 'Gaurav Divas'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-orange-300 block">100+</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'जनजातीय संग्रहालय' : 'Tribal Museums'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-sky-300 block">705+</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'जनजातियां संरक्षित' : 'Tribal Communities'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-emerald-300 block">Multi-Lingual</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'एसटी भाषा मंच' : 'ST Language Desk'}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const selector = document.getElementById('lang-select-btn');
+                        if (selector) selector.click();
+                      }}
+                      className="px-4 py-2 bg-gradient-to-r from-amber-500 to-[#f37021] hover:from-amber-600 hover:to-[#d95e14] text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Languages className="w-3.5 h-3.5" />
+                      <span>{currentLang === 'HI' ? 'जनजातीय भाषाएं चुनें' : 'Select Tribal Language'}</span>
+                    </button>
+                    <a
+                      href="https://tribal.nic.in"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>{currentLang === 'HI' ? 'विरासत अभिलेखागार' : 'Heritage Archive'}</span>
+                      <ExternalLink className="w-3 h-3 text-slate-300" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-4 flex flex-col items-center justify-center">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center max-w-xs w-full space-y-3">
+                    <div className="w-20 h-20 mx-auto rounded-2xl overflow-hidden border-2 border-amber-400/80 shadow-md bg-amber-950/40 p-1 flex items-center justify-center">
+                      <img
+                        src="/birsa-munda-150-logo.png"
+                        alt="Bhagwan Birsa Munda 150 Years"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-black text-amber-300">
+                        {currentLang === 'HI' ? 'धरती आबा भगवान बिरसा मुंडा' : 'Dharti Aaba Bhagwan Birsa Munda'}
+                      </h4>
+                      <p className="text-[11px] text-slate-200 mt-1">
+                        {currentLang === 'HI' ? 'उलगुलान के प्रणेता एवं स्वाधीनता के अमर महानायक' : 'Icon of India’s tribal freedom struggle & indigenous pride'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* SLIDE 3: Higher Education Excellence (NOS & NFST) */}
+            <div className={`transition-opacity duration-700 w-full p-5 sm:p-7 md:p-8 ${activeSlide === 3 ? 'opacity-100 relative z-10' : 'opacity-0 absolute inset-0 pointer-events-none'}`}>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <div className="lg:col-span-8 text-white space-y-3.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="px-3 py-1 rounded-full text-[11px] font-extrabold bg-sky-500/20 text-sky-300 border border-sky-400/30 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                      <span>{currentLang === 'HI' ? 'उच्च शिक्षा एवं वैश्विक अवसर' : 'HIGHER EDUCATION EXCELLENCE'}</span>
+                    </span>
+                    <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/15">
+                      National Overseas Scholarship (NOS)
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-tight">
+                    {currentLang === 'HI'
+                      ? 'राष्ट्रीय प्रवासी छात्रवृत्ति (NOS) एवं राष्ट्रीय फैलोशिप (NFST)'
+                      : 'National Overseas Scholarship & National Fellowship for ST Scholars'}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-2xl font-normal">
+                    {currentLang === 'HI'
+                      ? 'विश्व के शीर्ष 500 QS-रैंक वाले अंतरराष्ट्रीय विश्वविद्यालयों में मास्टर एवं पीएच.डी. अध्ययन हेतु 100% सरकारी वित्तीय सहायता तथा भारत के शीर्ष शोध संस्थानों (IIT, IIM, IISc) में नियमित मासिक अध्येतावृत्ति।'
+                      : 'Full 100% government sponsorship for tribal scholars at top 500 QS global institutions abroad, and monthly fellowships for doctoral research across India’s premier institutions.'}
+                  </p>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-sky-300 block">100%</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'पूर्णतः सरकारी वित्तपोषण' : 'Government Funded'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-indigo-300 block">Top 500</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'शीर्ष वैश्विक विश्वविद्यालय' : 'QS Universities'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-emerald-300 block">₹28,000/mo</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'मासिक शोध अध्येतावृत्ति' : 'Research Fellowship'}</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-2.5 text-center">
+                      <span className="text-base sm:text-lg font-black text-amber-300 block">Direct DBT</span>
+                      <span className="text-[10px] text-slate-300 font-medium block leading-tight">{currentLang === 'HI' ? 'पारदर्शी बैंक हस्तांतरण' : 'Aadhaar-Linked DBT'}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => onNavigateTab('global-bridge')}
+                      className="px-4 py-2 bg-gradient-to-r from-sky-600 to-[#0084d1] hover:from-sky-700 hover:to-[#0074b8] text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Globe className="w-3.5 h-3.5" />
+                      <span>{currentLang === 'HI' ? 'विदेश अध्ययन पोर्टल (NOS)' : 'Open Global Bridge (NOS)'}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsEligibilityOpen(true)}
+                      className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>{currentLang === 'HI' ? 'पात्रता की त्वरित जांच' : 'Check Eligibility'}</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-4 flex flex-col items-center justify-center">
+                  <div className="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center max-w-xs w-full space-y-3">
+                    <div className="w-16 h-16 mx-auto rounded-2xl bg-sky-500/20 text-sky-300 flex items-center justify-center border border-sky-400/30">
+                      <GraduationCap className="w-8 h-8 text-sky-300" />
+                    </div>
+                    <h4 className="text-base font-bold text-white leading-tight">
+                      {currentLang === 'HI' ? 'विश्वस्तरीय शिक्षा का मार्ग' : 'Empowering ST Scholars'}
+                    </h4>
+                    <p className="text-xs text-slate-200 leading-snug">
+                      {currentLang === 'HI'
+                        ? 'ऑक्सफोर्ड, हार्वर्ड, एमआईटी जैसे विश्वस्तरीय संस्थानों में शिक्षा शुल्क, आवास एवं हवाई यात्रा का पूर्ण वहन।'
+                        : 'Covering full tuition, living expenses, and airfare for tribal students at top universities worldwide.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          {/* Carousel Dot Indicators (Matching Official MoTA Portal) */}
-          <div className="py-2.5 bg-gradient-to-r from-slate-50 via-white to-slate-50 border-t border-slate-100 flex items-center justify-center gap-2 select-none">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#f37021] ring-2 ring-[#f37021]/30 transition-all cursor-pointer"></span>
-            <span className="w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer"></span>
-            <span className="w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer"></span>
-            <span className="w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer"></span>
-            <span className="w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer"></span>
+          {/* Carousel Interactive Controls (Matching Official NIC Government Standards) */}
+          <div className="py-3 px-4 sm:px-6 bg-slate-950/80 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-300">
+            {/* Left: Previous / Next Buttons */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={prevSlide}
+                aria-label="Previous Slide"
+                className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white transition cursor-pointer"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={nextSlide}
+                aria-label="Next Slide"
+                className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white transition cursor-pointer"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsAutoPlayPaused(!isAutoPlayPaused)}
+                aria-label={isAutoPlayPaused ? 'Resume auto-play' : 'Pause auto-play'}
+                title={isAutoPlayPaused ? 'Resume auto-play' : 'Pause auto-play'}
+                className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white transition cursor-pointer"
+              >
+                {isAutoPlayPaused ? <Play className="w-3.5 h-3.5 text-amber-300" /> : <Pause className="w-3.5 h-3.5" />}
+              </button>
+              <span className="text-[11px] font-mono text-slate-400 pl-1">
+                0{activeSlide + 1} / 04
+              </span>
+            </div>
+
+            {/* Center: Slide Indicators / Tabs */}
+            <div className="flex items-center gap-2">
+              {[
+                { titleEn: '12-Year Milestones', titleHi: '12 वर्षीय उपलब्धियां' },
+                { titleEn: 'PM-JANMAN', titleHi: 'पीएम-जनमन' },
+                { titleEn: 'Birsa Munda 150', titleHi: 'बिरसा मुंडा 150' },
+                { titleEn: 'NOS / NFST', titleHi: 'एनओएस / एनएफएसटी' }
+              ].map((slide, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setActiveSlide(idx)}
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                    activeSlide === idx
+                      ? 'bg-[#f37021] text-white shadow-sm'
+                      : 'bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full ${activeSlide === idx ? 'bg-white' : 'bg-slate-500'}`}></span>
+                  <span className="hidden sm:inline">{currentLang === 'HI' ? slide.titleHi : slide.titleEn}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Right: Live Autoplay Indicator */}
+            <div className="hidden md:flex items-center gap-1.5 text-[10px] text-slate-400 font-medium">
+              <span className={`w-2 h-2 rounded-full ${isAutoPlayPaused ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'}`}></span>
+              <span>{isAutoPlayPaused ? (currentLang === 'HI' ? 'रोका गया (हॉवर)' : 'Paused on Hover') : (currentLang === 'HI' ? 'स्वतः अग्रसारित' : 'Auto-Rotating')}</span>
+            </div>
           </div>
         </div>
 
@@ -785,38 +1216,53 @@ export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
             
             {/* Left Minister Card: Shri Jual Oram (Cabinet Minister) */}
-            <div className="lg:col-span-3 bg-slate-50/80 rounded-2xl border border-slate-200/80 p-4 flex flex-col items-center justify-between text-center group hover:border-[#0084d1]/40 transition shadow-2xs">
+            <div className="lg:col-span-3 bg-slate-50/90 rounded-2xl border border-slate-200/90 p-4 sm:p-5 flex flex-col items-center justify-between text-center group hover:border-[#0084d1]/40 transition shadow-2xs">
               <div className="w-full flex flex-col items-center">
-                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-white shadow-sm bg-white mb-3">
-                  <img
-                    src="/minister-jual-oram-hd.png"
-                    alt="Shri Jual Oram - Hon'ble Minister of Tribal Affairs"
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                  />
+                {/* Standard Passport Sized Photo Section - Clean Frame, No text overlap */}
+                <div className="w-32 h-44 sm:w-36 sm:h-48 aspect-[3/4] rounded-xl overflow-hidden border-2 border-slate-300 shadow-sm bg-white p-1 mb-3 shrink-0">
+                  <div className="w-full h-full rounded-lg overflow-hidden bg-slate-100 relative">
+                    <img
+                      src="/minister-jual-oram-passport.jpg"
+                      alt="Shri Jual Oram - Hon'ble Cabinet Minister of Tribal Affairs"
+                      className="w-full h-full object-cover object-top group-hover:scale-102 transition-transform duration-300"
+                    />
+                  </div>
                 </div>
-                <h4 className="text-xs sm:text-sm font-black text-slate-900 leading-tight">
+
+                {/* Strictly separated designation and text (No overlap) */}
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300 mb-1.5">
+                  {currentLang === 'HI' ? 'माननीय केंद्रीय मंत्री' : "Hon'ble Union Cabinet Minister"}
+                </span>
+
+                <h4 className="text-sm sm:text-base font-black text-slate-900 leading-tight">
                   {currentLang === 'HI' ? 'श्री जुएल ओराम' : 'Shri Jual Oram'}
                 </h4>
+
                 <p className="text-[11px] font-bold text-[#0084d1] mt-0.5">
-                  {currentLang === 'HI' ? 'माननीय मंत्री' : "Hon'ble Cabinet Minister"}
+                  {currentLang === 'HI' ? 'जनजातीय कार्य मंत्रालय, भारत सरकार' : 'Ministry of Tribal Affairs, Govt. of India'}
                 </p>
-                <p className="text-[10px] text-slate-500 font-medium">
-                  {currentLang === 'HI' ? 'जनजातीय कार्य मंत्रालय' : 'Ministry of Tribal Affairs'}
+
+                <p className="text-[10px] text-slate-500 font-medium mt-0.5">
+                  {currentLang === 'HI' ? 'सांसद (लोकसभा), सुंदरगढ़ (ओडिशा)' : 'MP (Lok Sabha), Sundargarh (Odisha)'}
                 </p>
               </div>
 
-              {/* Social Connect Icons */}
-              <div className="flex items-center gap-2.5 mt-3 pt-2.5 border-t border-slate-200/60 w-full justify-center text-slate-400">
-                <a href="https://twitter.com/jualoram" target="_blank" rel="noopener noreferrer" className="p-1 hover:text-[#0084d1] transition" title="X / Twitter">
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-                <a href="https://facebook.com/jualoram" target="_blank" rel="noopener noreferrer" className="p-1 hover:text-[#1877f2] transition" title="Facebook">
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              {/* Clean Official Parliament / Sansad Profile Link (No screenshot residue or twitter logos on photo) */}
+              <div className="mt-4 pt-3 border-t border-slate-200/80 w-full">
+                <a
+                  href="https://sansad.in/members/biographyM/496?from=members"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-sky-300 text-[11px] font-semibold text-slate-700 hover:text-[#0084d1] flex items-center justify-center gap-1.5 transition shadow-2xs w-full"
+                  title="Official Parliament Profile"
+                >
+                  <ExternalLink className="w-3 h-3 text-[#0084d1]" />
+                  <span>{currentLang === 'HI' ? 'संसद आधिकारिक प्रोफाइल' : 'Parliament Profile'}</span>
                 </a>
               </div>
             </div>
 
-            {/* Middle Content: About the Ministry (Historical Background) */}
+            {/* Middle Content: About the Ministry (Historical Background & Mandate) */}
             <div className="lg:col-span-6 flex flex-col justify-between py-1">
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
@@ -826,7 +1272,7 @@ export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
                   </h3>
                 </div>
                 <h4 className="text-xs font-bold text-slate-700 mb-2">
-                  {currentLang === 'HI' ? 'ऐतिहासिक पृष्ठभूमि एवं अधिदेश' : 'Historical Background & Mandate'}
+                  {currentLang === 'HI' ? 'ऐतिहासिक पृष्ठभूमि एवं संवैधानिक अधिदेश' : 'Historical Background & Constitutional Mandate'}
                 </h4>
                 
                 <div className="text-[11px] sm:text-xs text-slate-600 space-y-2 leading-relaxed text-justify">
@@ -837,9 +1283,25 @@ export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
                   </p>
                   <p>
                     {currentLang === 'HI'
-                      ? 'जनजातीय कार्य मंत्रालय अनुसूचित जनजातियों के विकास कार्यक्रमों की समग्र नीति, आयोजना एवं समन्वयन के लिए एक नोडल मंत्रालय है। यह मंत्रालय शिक्षा (छात्रवृत्तियां), आजीविका, संस्कृति एवं वन अधिकार अधिनियम (FRA) के प्रभावी क्रियान्वयन हेतु समर्पित है।'
-                      : 'As the nodal Ministry, it steers policies, planning, and scholarship distribution to empower 705+ tribal communities across the nation under the constitutional vision of equitable growth.'}
+                      ? 'जनजातीय कार्य मंत्रालय अनुसूचित जनजातियों के विकास कार्यक्रमों की समग्र नीति, आयोजना एवं समन्वयन के लिए भारत सरकार का नोडल मंत्रालय है। संविधान के अनुच्छेद 275(1), अनुच्छेद 342 तथा पांचवीं व छठी अनुसूची के अंतर्गत यह मंत्रालय उच्च शिक्षा (जनजातीय विद्या सेतु), आजीविका (वन धन), वन अधिकार अधिनियम (FRA) एवं स्वास्थ्य मिशनों के प्रभावी क्रियान्वयन हेतु समर्पित है।'
+                      : 'As the nodal Ministry of the Government of India under Articles 275(1), 342, and the 5th & 6th Schedules of the Constitution, it steers policies, planning, and scholarship distribution to empower 705+ tribal communities across the nation.'}
                   </p>
+                </div>
+
+                {/* 3 Core Focus Pillars */}
+                <div className="grid grid-cols-3 gap-2 pt-3">
+                  <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center">
+                    <span className="text-[11px] font-bold text-slate-900 block leading-tight">{currentLang === 'HI' ? 'शिक्षा एवं छात्रवृत्ति' : 'Scholarships'}</span>
+                    <span className="text-[9px] text-slate-500 block mt-0.5">{currentLang === 'HI' ? 'DBT के माध्यम से' : 'Direct DBT'}</span>
+                  </div>
+                  <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center">
+                    <span className="text-[11px] font-bold text-slate-900 block leading-tight">{currentLang === 'HI' ? 'आजीविका' : 'Livelihood'}</span>
+                    <span className="text-[9px] text-slate-500 block mt-0.5">{currentLang === 'HI' ? 'वन धन विकास केंद्र' : 'Van Dhan Kendras'}</span>
+                  </div>
+                  <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 text-center">
+                    <span className="text-[11px] font-bold text-slate-900 block leading-tight">{currentLang === 'HI' ? 'संवैधानिक अधिकार' : 'Tribal Rights'}</span>
+                    <span className="text-[9px] text-slate-500 block mt-0.5">{currentLang === 'HI' ? 'वन अधिकार कानून (FRA)' : 'Forest Rights Act'}</span>
+                  </div>
                 </div>
               </div>
 
@@ -850,45 +1312,60 @@ export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-sky-600 to-[#0084d1] hover:from-sky-700 hover:to-[#0074b8] text-white text-xs font-bold rounded-xl transition shadow-xs cursor-pointer group"
                 >
-                  <span>{currentLang === 'HI' ? 'और देखें...' : 'Read More on tribal.nic.in'}</span>
+                  <span>{currentLang === 'HI' ? 'tribal.nic.in पर और देखें' : 'Visit tribal.nic.in Portal'}</span>
                   <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </a>
 
-                <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-medium">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <div className="flex items-center gap-1.5 text-[10px] text-slate-500 font-semibold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span>Official Government Portal</span>
                 </div>
               </div>
             </div>
 
             {/* Right Minister Card: Shri Durgadas Uikey (Minister of State) */}
-            <div className="lg:col-span-3 bg-slate-50/80 rounded-2xl border border-slate-200/80 p-4 flex flex-col items-center justify-between text-center group hover:border-[#0084d1]/40 transition shadow-2xs">
+            <div className="lg:col-span-3 bg-slate-50/90 rounded-2xl border border-slate-200/90 p-4 sm:p-5 flex flex-col items-center justify-between text-center group hover:border-[#0084d1]/40 transition shadow-2xs">
               <div className="w-full flex flex-col items-center">
-                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-white shadow-sm bg-white mb-3">
-                  <img
-                    src="/minister-durgadas-uikey-hd.png"
-                    alt="Shri Durgadas Uikey - Hon'ble Minister of State for Tribal Affairs"
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                  />
+                {/* Standard Passport Sized Photo Section - Clean Frame, No text overlap */}
+                <div className="w-32 h-44 sm:w-36 sm:h-48 aspect-[3/4] rounded-xl overflow-hidden border-2 border-slate-300 shadow-sm bg-white p-1 mb-3 shrink-0">
+                  <div className="w-full h-full rounded-lg overflow-hidden bg-slate-100 relative">
+                    <img
+                      src="/minister-durgadas-uikey-passport.jpg"
+                      alt="Shri Durgadas Uikey - Hon'ble Minister of State for Tribal Affairs"
+                      className="w-full h-full object-cover object-top group-hover:scale-102 transition-transform duration-300"
+                    />
+                  </div>
                 </div>
-                <h4 className="text-xs sm:text-sm font-black text-slate-900 leading-tight">
+
+                {/* Strictly separated designation and text (No overlap) */}
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-900 border border-sky-300 mb-1.5">
+                  {currentLang === 'HI' ? 'माननीय राज्य मंत्री' : "Hon'ble Minister of State (MoS)"}
+                </span>
+
+                <h4 className="text-sm sm:text-base font-black text-slate-900 leading-tight">
                   {currentLang === 'HI' ? 'श्री दुर्गादास उइके' : 'Shri Durgadas Uikey'}
                 </h4>
+
                 <p className="text-[11px] font-bold text-[#0084d1] mt-0.5">
-                  {currentLang === 'HI' ? 'माननीय राज्य मंत्री' : "Hon'ble Minister of State (MoS)"}
+                  {currentLang === 'HI' ? 'जनजातीय कार्य मंत्रालय, भारत सरकार' : 'Ministry of Tribal Affairs, Govt. of India'}
                 </p>
-                <p className="text-[10px] text-slate-500 font-medium">
-                  {currentLang === 'HI' ? 'जनजातीय कार्य मंत्रालय' : 'Ministry of Tribal Affairs'}
+
+                <p className="text-[10px] text-slate-500 font-medium mt-0.5">
+                  {currentLang === 'HI' ? 'सांसद (लोकसभा), बैतूल (मध्य प्रदेश)' : 'MP (Lok Sabha), Betul (Madhya Pradesh)'}
                 </p>
               </div>
 
-              {/* Social Connect Icons */}
-              <div className="flex items-center gap-2.5 mt-3 pt-2.5 border-t border-slate-200/60 w-full justify-center text-slate-400">
-                <a href="https://twitter.com/durgadasuikey" target="_blank" rel="noopener noreferrer" className="p-1 hover:text-[#0084d1] transition" title="X / Twitter">
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-                <a href="https://facebook.com/durgadasuikey" target="_blank" rel="noopener noreferrer" className="p-1 hover:text-[#1877f2] transition" title="Facebook">
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              {/* Clean Official Parliament / Sansad Profile Link */}
+              <div className="mt-4 pt-3 border-t border-slate-200/80 w-full">
+                <a
+                  href="https://sansad.in/members/biographyM/5057?from=members"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-sky-300 text-[11px] font-semibold text-slate-700 hover:text-[#0084d1] flex items-center justify-center gap-1.5 transition shadow-2xs w-full"
+                  title="Official Parliament Profile"
+                >
+                  <ExternalLink className="w-3 h-3 text-[#0084d1]" />
+                  <span>{currentLang === 'HI' ? 'संसद आधिकारिक प्रोफाइल' : 'Parliament Profile'}</span>
                 </a>
               </div>
             </div>
