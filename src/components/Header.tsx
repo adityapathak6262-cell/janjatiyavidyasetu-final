@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import emblemLogo from '../assets/emblem.svg';
 import digitalIndiaLogo from '../assets/digital-india-logo.svg';
 import { 
@@ -34,7 +34,7 @@ import {
   Building2
 } from 'lucide-react';
 import { User, NotificationRecord } from '../api';
-import { translations, Language } from '../translations';
+import { translations, Language, SUPPORTED_LANGUAGES } from '../translations';
 
 interface HeaderProps {
   currentUser: User | null;
@@ -48,8 +48,8 @@ interface HeaderProps {
   onOpenAuthModal: (mode: 'STUDENT_LOGIN' | 'STUDENT_REGISTER' | 'ADMIN_LOGIN') => void;
   onLogout: () => void;
   onOpenThreeDotMenu: () => void;
-  lang?: 'EN' | 'HI';
-  onSetLang?: (lang: 'EN' | 'HI') => void;
+  lang?: Language;
+  onSetLang?: (lang: Language) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -73,7 +73,19 @@ export const Header: React.FC<HeaderProps> = ({
   const [showScholarshipsDropdown, setShowScholarshipsDropdown] = useState(false);
   const [showApplicationsDropdown, setShowApplicationsDropdown] = useState(false);
   const [fontSizeLevel, setFontSizeLevel] = useState<'sm' | 'md' | 'lg'>('md');
+  const langMenuRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (langMenuRef.current && !langMenuRef.current.contains(event.target as Node)) {
+        setShowLangMenu(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const activeLanguageMeta = SUPPORTED_LANGUAGES.find((l) => l.code === (lang || 'EN')) || SUPPORTED_LANGUAGES[0];
   const t = translations[lang || 'EN'].header;
   const schemesT = translations[lang || 'EN'].schemes;
   const currentLang = (lang || 'EN') as Language;
@@ -217,44 +229,115 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             </div>
 
-            {/* Language Selector: Globe Icon + English ⌵ */}
-            <div className="relative">
+            {/* Language Selector: Globe Icon + Active Language + Multi-Lingual Dropdown */}
+            <div className="relative" ref={langMenuRef}>
               <button
                 onClick={() => setShowLangMenu(!showLangMenu)}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100 transition cursor-pointer border border-transparent hover:border-slate-200"
-                title="Change Portal Language"
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer border ${
+                  showLangMenu 
+                    ? 'bg-sky-50 border-sky-300 text-[#0084d1]' 
+                    : 'text-slate-700 hover:bg-slate-100 border-transparent hover:border-slate-200'
+                }`}
+                title="Change Portal Language (Bhashini National & Tribal Languages)"
               >
                 <Globe className="w-3.5 h-3.5 text-[#0084d1]" />
-                <span className="font-bold">{lang === 'EN' ? 'English' : 'हिन्दी'}</span>
-                <ChevronDown className="w-3 h-3 text-slate-400" />
+                <span className="font-bold tracking-tight">{activeLanguageMeta.nativeName}</span>
+                {activeLanguageMeta.isTribal && (
+                  <span className="text-[9px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded border border-emerald-300 shadow-2xs">
+                    ST Tribal
+                  </span>
+                )}
+                <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />
               </button>
 
               {showLangMenu && (
-                <div className="absolute right-0 mt-1.5 w-32 bg-white rounded-xl shadow-lg border border-slate-200 py-1 z-50 text-xs font-medium animate-scale-up">
-                  <button
-                    onClick={() => {
-                      if (onSetLang) onSetLang('EN');
-                      setShowLangMenu(false);
-                    }}
-                    className={`w-full px-3 py-2 text-left flex items-center justify-between hover:bg-slate-50 transition cursor-pointer ${
-                      lang === 'EN' ? 'font-bold text-[#0084d1]' : 'text-slate-700'
-                    }`}
-                  >
-                    <span>English</span>
-                    {lang === 'EN' && <Check className="w-3.5 h-3.5 text-[#0084d1]" />}
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (onSetLang) onSetLang('HI');
-                      setShowLangMenu(false);
-                    }}
-                    className={`w-full px-3 py-2 text-left flex items-center justify-between hover:bg-slate-50 transition cursor-pointer ${
-                      lang === 'HI' ? 'font-bold text-[#0084d1]' : 'text-slate-700'
-                    }`}
-                  >
-                    <span>हिन्दी</span>
-                    {lang === 'HI' && <Check className="w-3.5 h-3.5 text-[#0084d1]" />}
-                  </button>
+                <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50 text-xs font-medium animate-scale-up overflow-hidden">
+                  {/* Dropdown Header with Bhashini Brand */}
+                  <div className="px-3.5 py-2 bg-gradient-to-r from-sky-50 via-indigo-50 to-emerald-50 border-b border-slate-200/80 mb-1">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <Globe className="w-3.5 h-3.5 text-[#0084d1]" />
+                        <span className="text-[11px] font-bold text-slate-900">Bhashini AI Language Gateway</span>
+                      </div>
+                      <span className="text-[9px] bg-sky-100 text-[#0084d1] font-bold px-1.5 py-0.5 rounded">
+                        MeitY NLTM
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-slate-500 mt-0.5">
+                      Empowering Tribal Communities & ST Students in their Mother Tongue
+                    </p>
+                  </div>
+
+                  {/* Section 1: ST Tribal & Regional Languages */}
+                  <div className="px-3 py-1 text-[10px] font-bold text-emerald-800 uppercase tracking-wider flex items-center justify-between bg-emerald-50/60 mx-2 rounded-md mb-1">
+                    <span>Tribal & Regional Languages (जनजातीय भाषाएँ)</span>
+                    <span className="text-[9px] bg-emerald-200/80 text-emerald-900 px-1 rounded font-semibold">ST Specific</span>
+                  </div>
+
+                  <div className="space-y-0.5 px-1.5 max-h-64 overflow-y-auto">
+                    {SUPPORTED_LANGUAGES.filter((l) => l.isTribal).map((l) => {
+                      const isSelected = (lang || 'EN') === l.code;
+                      return (
+                        <button
+                          key={l.code}
+                          onClick={() => {
+                            if (onSetLang) onSetLang(l.code);
+                            setShowLangMenu(false);
+                          }}
+                          className={`w-full px-3 py-2 text-left flex items-center justify-between rounded-xl transition cursor-pointer ${
+                            isSelected
+                              ? 'bg-emerald-50 text-emerald-900 font-bold border border-emerald-200'
+                              : 'text-slate-700 hover:bg-slate-50'
+                          }`}
+                        >
+                          <div className="flex flex-col">
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-xs font-bold text-slate-900">{l.nativeName}</span>
+                              <span className="text-[10px] text-slate-500">({l.name})</span>
+                              {l.badgeText && (
+                                <span className="text-[9px] bg-emerald-100 text-emerald-800 font-medium px-1 py-0.2 rounded border border-emerald-200">
+                                  {l.badgeText}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[10px] text-slate-400 font-normal">{l.region}</span>
+                          </div>
+                          {isSelected && <Check className="w-4 h-4 text-emerald-600 shrink-0 ml-2" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Section 2: National & Official Languages */}
+                  <div className="px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between bg-slate-100 mx-2 rounded-md mt-2 mb-1">
+                    <span>National & Official (राष्ट्रीय / आधिकारिक)</span>
+                  </div>
+
+                  <div className="space-y-0.5 px-1.5">
+                    {SUPPORTED_LANGUAGES.filter((l) => !l.isTribal).map((l) => {
+                      const isSelected = (lang || 'EN') === l.code;
+                      return (
+                        <button
+                          key={l.code}
+                          onClick={() => {
+                            if (onSetLang) onSetLang(l.code);
+                            setShowLangMenu(false);
+                          }}
+                          className={`w-full px-3 py-2 text-left flex items-center justify-between rounded-xl transition cursor-pointer ${
+                            isSelected
+                              ? 'bg-sky-50 text-[#0084d1] font-bold border border-sky-200'
+                              : 'text-slate-700 hover:bg-slate-50'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-slate-900">{l.nativeName}</span>
+                            <span className="text-[10px] text-slate-500">({l.name})</span>
+                          </div>
+                          {isSelected && <Check className="w-4 h-4 text-[#0084d1] shrink-0 ml-2" />}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </div>

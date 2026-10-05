@@ -279,9 +279,11 @@ Niche diye gaye prompt par click karein ya website ke kisi bhi section ke bare m
             >
               <option value="hi">हिन्दी (Hindi)</option>
               <option value="en">English (English)</option>
-              <option value="sat">ᱥᱟᱱᱛᱟᱲᱤ (Santali - Tribal)</option>
-              <option value="or">ଓଡ଼ିଆ (Odia - Tribal Belt)</option>
-              <option value="bn">বাংলা (Bengali)</option>
+              <option value="sat">ᱥᱟᱱᱛᱟᱲᱤ (Santali - ST 8th Schedule)</option>
+              <option value="or">ଓଡ଼ିଆ (Odia - 62 STs)</option>
+              <option value="bodo">बर' (Bodo - ST 8th Schedule)</option>
+              <option value="gon">गोंडी (Gondi - Tribal Belt)</option>
+              <option value="bn">বাংলা (Bengali - Eastern STs)</option>
               <option value="mr">मराठी (Marathi)</option>
               <option value="te">తెలుగు (Telugu)</option>
             </select>

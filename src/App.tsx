@@ -12,6 +12,7 @@ import { NavigationDrawer } from './components/NavigationDrawer';
 import { AuthModal } from './components/AuthModal';
 import { ChatbotWidget } from './components/ChatbotWidget';
 import { User, NotificationRecord, api, setAuthToken } from './api';
+import { Language } from './translations';
 import { Shield, GraduationCap, UserCheck, RefreshCw, AlertTriangle } from 'lucide-react';
 
 interface ErrorBoundaryProps {
@@ -79,8 +80,8 @@ export default function App() {
   const [isThreeDotMenuOpen, setIsThreeDotMenuOpen] = useState<boolean>(false);
   const [isChatbotOpen, setIsChatbotOpen] = useState<boolean>(false);
 
-  // Language State: 'EN' (English, default) or 'HI' (Hindi)
-  const [lang, setLang] = useState<'EN' | 'HI'>('EN');
+  // Language State: Supports English, Hindi, and ST Tribal Languages (Santali, Odia, Bodo, Gondi, Bengali)
+  const [lang, setLang] = useState<Language>('EN');
 
   // Auth Modal State
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);

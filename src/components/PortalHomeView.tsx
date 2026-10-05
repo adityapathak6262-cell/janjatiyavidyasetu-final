@@ -36,14 +36,14 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { User } from '../api';
-import { translations, Language } from '../translations';
+import { translations, Language, SUPPORTED_LANGUAGES } from '../translations';
 
 interface PortalHomeViewProps {
   currentUser: User | null;
   onNavigateTab: (tab: string, subTab?: string) => void;
   onOpenAuth: (mode: 'STUDENT_LOGIN' | 'STUDENT_REGISTER' | 'ADMIN_LOGIN') => void;
-  lang?: 'EN' | 'HI';
-  onSetLang?: (lang: 'EN' | 'HI') => void;
+  lang?: Language;
+  onSetLang?: (lang: Language) => void;
 }
 
 export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
@@ -242,6 +242,37 @@ export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Bhashini Tribal Language Active Banner (Shown when an ST Tribal Language is active) */}
+      {['SAT', 'OR', 'BODO', 'GON', 'BN'].includes(currentLang) && (
+        <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-sky-50 border border-emerald-300 rounded-2xl p-3.5 shadow-2xs flex items-center justify-between gap-3 animate-fade-in">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs border border-emerald-500">
+              ST
+            </div>
+            <div>
+              <div className="text-xs font-bold text-emerald-950 flex flex-wrap items-center gap-2">
+                <span>{t.header.portalName} — Bhashini Tribal Language Mode</span>
+                <span className="text-[10px] bg-emerald-200/90 text-emerald-900 font-bold px-2 py-0.5 rounded-full border border-emerald-300">
+                  {SUPPORTED_LANGUAGES.find(l => l.code === currentLang)?.nativeName} ({SUPPORTED_LANGUAGES.find(l => l.code === currentLang)?.name})
+                </span>
+                <span className="text-[9px] bg-sky-100 text-[#0084d1] font-semibold px-1.5 py-0.2 rounded">
+                  {SUPPORTED_LANGUAGES.find(l => l.code === currentLang)?.script}
+                </span>
+              </div>
+              <p className="text-[11px] text-emerald-800 font-medium mt-0.5">
+                {SUPPORTED_LANGUAGES.find(l => l.code === currentLang)?.region} · Digital India National Language Translation Mission (NLTM)
+              </p>
+            </div>
+          </div>
+          <div className="hidden sm:flex items-center gap-2 shrink-0">
+            <span className="text-[10px] text-emerald-700 font-semibold bg-white/80 px-2 py-1 rounded-lg border border-emerald-200">
+              Bhashini NMT v2.0
+            </span>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+          </div>
+        </div>
+      )}
 
       {/* ========================================================================= */}
       {/* 1. CENTRAL MoTA SCHOLARSHIP FELICITATION SHOWCASE BANNER                */}
