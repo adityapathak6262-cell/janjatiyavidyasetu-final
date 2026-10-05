@@ -133,17 +133,11 @@ export const PramaanGlobalBridge: React.FC<PramaanGlobalBridgeProps> = ({ curren
               <span className="px-2.5 py-0.5 rounded text-[11px] font-bold bg-sky-50 text-[#0084d1] border border-sky-200">
                 Ministry of Tribal Affairs · Government of India
               </span>
-              <span className="px-2.5 py-0.5 rounded text-[11px] font-mono text-slate-600 bg-slate-100 border border-slate-200 font-semibold">
-                MoTA Circular No. 11015/01/2021-Scholarship
-              </span>
             </div>
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2.5">
               <Globe className="w-6 h-6 text-[#0084d1]" />
               <span>National Overseas Scholarship (NOS) Desk</span>
             </h1>
-            <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-              End-to-end processing for foreign university admissions, statutory quotas, and embassy maintenance remittances.
-            </p>
           </div>
 
           <div className="flex items-center gap-3 shrink-0">

@@ -32,7 +32,8 @@ import {
   X, 
   Lock, 
   ArrowRight,
-  HelpCircle
+  HelpCircle,
+  Sparkles
 } from 'lucide-react';
 
 interface Props {
@@ -730,7 +731,7 @@ export const ScholarshipContinuityPortal: React.FC<Props> = ({ currentUser, onRe
         /* ========================================================================= */
         /* STUDENT: CONTINUITY STATUS, CORE QUESTIONS & RENEWAL CENTER               */
         /* ========================================================================= */
-        studentRecord && (
+        studentRecord ? (
           <div className="space-y-6">
             {/* Top Overview Card */}
             {(() => {
@@ -1147,6 +1148,31 @@ export const ScholarshipContinuityPortal: React.FC<Props> = ({ currentUser, onRe
                 </div>
               );
             })()}
+          </div>
+        ) : (
+          <div className="bg-white rounded-xl p-8 sm:p-12 border border-slate-300 text-center max-w-xl mx-auto space-y-4 shadow-xs my-8">
+            <div className="w-14 h-14 rounded-xl bg-sky-50 border border-sky-200 text-[#0b3366] flex items-center justify-center mx-auto shadow-xs">
+              <Sparkles className="w-7 h-7 text-[#0b3366]" />
+            </div>
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-wider text-[#0b3366] bg-sky-50 border border-sky-200 px-3 py-1 rounded-full">
+                Fresh Applicant · Initial AY 2026–27 Cycle
+              </span>
+              <h2 className="text-lg font-black text-slate-900 mt-3">
+                Scholarship Continuity & Renewal Not Applicable
+              </h2>
+            </div>
+            <p className="text-xs text-slate-600 leading-relaxed max-w-md mx-auto">
+              You are currently an initial applicant beginning your scholarship application form. Multi-Year Scholarship Continuity and Annual Academic Progression tracking applies from Academic Year 2 and beyond, after your initial award has been granted and disbursed.
+            </p>
+            <div className="pt-2">
+              <button
+                onClick={() => onRefreshData && onRefreshData()}
+                className="px-5 py-2.5 bg-[#0b3366] hover:bg-[#002244] text-white rounded-lg text-xs font-bold transition shadow-xs cursor-pointer"
+              >
+                Return to Student Dashboard
+              </button>
+            </div>
           </div>
         )
       )}

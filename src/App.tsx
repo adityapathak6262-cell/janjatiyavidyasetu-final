@@ -142,8 +142,12 @@ export default function App() {
         }
       }
     } else if (tab === 'officer') {
-      if (!currentUser || (currentUser.role !== 'MOTA_OFFICER' && currentUser.role !== 'INSTITUTION_VERIFIER')) {
-        const officerUser = allDemoUsers.find((u) => u.role === 'MOTA_OFFICER') || allDemoUsers.find((u) => u.role === 'INSTITUTION_VERIFIER');
+      const isOfficerUser = currentUser?.role === 'MOTA_OFFICER' || currentUser?.role === 'INSTITUTION_VERIFIER';
+      if (!isOfficerUser) {
+        // If subTab is verification, preferentially select INO (INSTITUTION_VERIFIER); otherwise MoTA Officer
+        const officerUser = (subTab === 'verification')
+          ? (allDemoUsers.find((u) => u.role === 'INSTITUTION_VERIFIER') || allDemoUsers.find((u) => u.role === 'MOTA_OFFICER'))
+          : (allDemoUsers.find((u) => u.role === 'MOTA_OFFICER') || allDemoUsers.find((u) => u.role === 'INSTITUTION_VERIFIER'));
         if (officerUser) {
           try {
             const loginRes = await api.login(officerUser.email, 'MotA@Jvs2026');
@@ -191,9 +195,19 @@ export default function App() {
       setCurrentUser(loginRes.user);
 
       // Set target portal based on role
-      if (loginRes.user.role === 'STUDENT') setActiveTab('student');
-      else if (loginRes.user.role === 'INSTITUTION_VERIFIER' || loginRes.user.role === 'MOTA_OFFICER') setActiveTab('officer');
-      else if (loginRes.user.role === 'ADMIN' || loginRes.user.role === 'SUPER_ADMIN') setActiveTab('admin');
+      if (loginRes.user.role === 'STUDENT') {
+        setActiveTab('student');
+        setStudentTargetSubTab('dashboard');
+      } else if (loginRes.user.role === 'INSTITUTION_VERIFIER') {
+        setActiveTab('officer');
+        setOfficerTargetSubTab('verification');
+      } else if (loginRes.user.role === 'MOTA_OFFICER') {
+        setActiveTab('officer');
+        setOfficerTargetSubTab('scrutiny');
+      } else if (loginRes.user.role === 'ADMIN' || loginRes.user.role === 'SUPER_ADMIN') {
+        setActiveTab('admin');
+        setAdminTargetSubTab('showcase');
+      }
 
       const [notifs, analytics] = await Promise.all([
         api.getNotifications().catch(() => []),
@@ -556,9 +570,9 @@ export default function App() {
             </span>
           </div>
           <div className="flex items-center gap-4 text-[11px] text-slate-400">
-            <span>Core: Policy → Proof → Process</span>
+            <span>National Digital Public Infrastructure · MoTA AY 2026–27</span>
             <span>·</span>
-            <span>PRAMAAN Dual-Path Verification</span>
+            <span>PRAMAAN Automated Verification Engine</span>
             <span>·</span>
             <span className="font-mono">Tamper-Evident SHA-256 Ledger</span>
           </div>

@@ -196,309 +196,160 @@ export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
   return (
     <div className="space-y-7 animate-fade-in pb-16 font-sans">
 
-      {/* ========================================================================= */}
-      {/* 1. HERO SECTION (Matches Screenshot st-scholarship-ui-option-2.png) */}
-      {/* ========================================================================= */}
-      <div className="relative rounded-3xl bg-linear-to-r from-[#eef7fc] via-[#f7fbfe] to-[#eaf5fc] border border-sky-100/90 shadow-xs overflow-hidden p-6 sm:p-10">
-        
-        {/* Subtle decorative background watermarks */}
-        <div className="absolute -top-12 -right-12 w-96 h-96 bg-sky-200/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-16 left-1/3 w-80 h-80 bg-teal-200/15 rounded-full blur-2xl pointer-events-none" />
-
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          {/* LEFT COLUMN: Hero Copy + Search Bar + Badges (7 Cols) */}
-          <div className="lg:col-span-7 space-y-5">
-            
-            {/* Tagline */}
-            <div className="inline-block">
-              <span className="font-extrabold text-[#0084d1] text-xs sm:text-[13px] tracking-wider uppercase">
-                {t.home.heroTag}
+      {/* GOVERNMENT CIRCULAR / NOTICE TICKER STRIP */}
+      <div className="bg-[#fff9e6] border border-[#f5d580] rounded-xl px-4 py-2 flex items-center gap-3 text-xs shadow-2xs overflow-hidden">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#b45309] text-white font-black text-[10px] tracking-wider uppercase shrink-0 shadow-2xs z-10 select-none">
+          <Megaphone className="w-3 h-3 animate-pulse" />
+          {currentLang === 'EN' ? 'LATEST CIRCULARS' : 'नवीनतम परिपत्र'}
+        </span>
+        <div className="overflow-hidden whitespace-nowrap text-slate-800 font-medium text-xs flex-1 relative group select-none">
+          <div className="animate-marquee-infinite inline-flex items-center gap-8 cursor-pointer" title={currentLang === 'EN' ? 'Hover cursor to pause' : 'रोकने के लिए माउस ऊपर लाएं'}>
+            <span className="inline-flex items-center gap-8">
+              <span className="inline-flex items-center gap-2">
+                <span className="px-1.5 py-0.5 rounded bg-amber-200 text-amber-900 font-bold text-[9px] uppercase">NEW</span>
+                <span>{currentLang === 'EN' ? '★ NFST & NOS AY 2026–27 Online Registration Portal is LIVE.' : '★ एनएफएसटी एवं एनओएस शैक्षणिक सत्र 2026–27 ऑनलाइन पंजीकरण पोर्टल सक्रिय है।'}</span>
               </span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[52px] font-black text-[#0a2540] tracking-tight leading-[1.12]">
-              {t.home.heroTitlePart1} <br />
-              <span className="text-[#0084d1]">{t.home.heroTitlePart2}</span>
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-sm sm:text-base text-slate-600 font-medium max-w-xl leading-relaxed">
-              {t.home.heroSubtitle}
-            </p>
-
-            {/* Search Input Box */}
-            <form onSubmit={handleSearchSubmit} className="max-w-xl">
-              <div className="flex items-center rounded-xl bg-white border border-slate-300 shadow-sm p-1.5 focus-within:border-[#0084d1] focus-within:ring-2 focus-within:ring-sky-100 transition">
-                <div className="pl-3 pr-2 text-slate-400">
-                  <Search className="w-5 h-5 text-slate-500" />
-                </div>
-                <input
-                  id="hero-search-input"
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={t.home.searchPlaceholder}
-                  className="w-full text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none bg-transparent py-1.5"
-                />
-                <button
-                  type="submit"
-                  className="bg-[#0084d1] hover:bg-[#0074b8] text-white px-5 sm:px-6 py-2.5 rounded-lg font-bold text-xs sm:text-sm transition shadow-xs cursor-pointer shrink-0"
-                >
-                  {t.home.searchBtn}
-                </button>
-              </div>
-            </form>
-
-            {/* Quick Filter Pill Tags */}
-            <div className="flex flex-wrap items-center gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() => handleTagClick('Post Matric')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:border-[#0084d1] hover:text-[#0084d1] transition shadow-2xs cursor-pointer"
-              >
-                <Search className="w-3 h-3 text-slate-400" />
-                <span>{t.home.tagPostMatric}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleTagClick('Pre Matric')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:border-[#0084d1] hover:text-[#0084d1] transition shadow-2xs cursor-pointer"
-              >
-                <Search className="w-3 h-3 text-slate-400" />
-                <span>{t.home.tagPreMatric}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleTagClick('Top Class')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:border-[#0084d1] hover:text-[#0084d1] transition shadow-2xs cursor-pointer"
-              >
-                <Search className="w-3 h-3 text-slate-400" />
-                <span>{t.home.tagTopClass}</span>
-              </button>
-            </div>
-
-            {/* 3 Stats / Trust Cards */}
-            <div className="grid grid-cols-3 gap-3 pt-3 max-w-xl">
-              
-              {/* Card 1: 120+ Schemes */}
-              <div className="bg-white/90 backdrop-blur-xs p-3.5 rounded-xl border border-sky-100 shadow-2xs flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-sky-100 text-[#0084d1] flex items-center justify-center shrink-0">
-                  <GraduationCap className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-base sm:text-lg font-black text-slate-900 leading-tight">{t.home.statSchemesCount}</div>
-                  <div className="text-[11px] text-slate-500 font-semibold leading-tight">{t.home.statSchemesLabel}</div>
-                </div>
-              </div>
-
-              {/* Card 2: 24 States */}
-              <div className="bg-white/90 backdrop-blur-xs p-3.5 rounded-xl border border-sky-100 shadow-2xs flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-base sm:text-lg font-black text-slate-900 leading-tight">{t.home.statStatesCount}</div>
-                  <div className="text-[11px] text-slate-500 font-semibold leading-tight">{t.home.statStatesLabel}</div>
-                </div>
-              </div>
-
-              {/* Card 3: Secure & Transparent */}
-              <div className="bg-white/90 backdrop-blur-xs p-3.5 rounded-xl border border-sky-100 shadow-2xs flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100 text-[#0070ba] flex items-center justify-center shrink-0">
-                  <Shield className="w-5 h-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-xs sm:text-sm font-bold text-slate-900 leading-tight truncate">{t.home.statSecureTitle}</div>
-                  <div className="text-[10px] sm:text-[11px] text-slate-500 font-semibold leading-tight truncate">{t.home.statSecureSubtitle}</div>
-                </div>
-              </div>
-
-            </div>
-
+              <span>•</span>
+              <span className="inline-flex items-center gap-2">
+                <span className="px-1.5 py-0.5 rounded bg-emerald-200 text-emerald-900 font-bold text-[9px] uppercase">URGENT</span>
+                <span>{currentLang === 'EN' ? 'Last Date for Institute Level-1 Endorsement: 30th April 2026.' : 'संस्थान स्तरीय सत्यापन की अंतिम तिथि: 30 अप्रैल 2026।'}</span>
+              </span>
+              <span>•</span>
+              <span>{currentLang === 'EN' ? '★ Aadhaar-seeded bank account mandate compulsory under DBT guidelines (GFR 255).' : '★ डीबीटी दिशानिर्देशों (GFR 255) के तहत आधार-सीडेड बैंक खाता अनिवार्य है।'}</span>
+              <span>•</span>
+              <span>{currentLang === 'EN' ? '★ One Time Registration (OTR) is active for fresh ST applicants.' : '★ नए एसटी आवेदकों हेतु वन टाइम रजिस्ट्रेशन (OTR) सेवा उपलब्ध है।'}</span>
+              <span>•</span>
+              <span>{currentLang === 'EN' ? '★ Top Class Education Scheme: Premier Institutes verification window open.' : '★ शीर्ष श्रेणी शिक्षा योजना: उत्कृष्ट संस्थानों के सत्यापन हेतु विंडो खुली है।'}</span>
+            </span>
+            {/* Exact Duplicate for Continuous Endless Loop */}
+            <span className="inline-flex items-center gap-8" aria-hidden="true">
+              <span className="inline-flex items-center gap-2">
+                <span className="px-1.5 py-0.5 rounded bg-amber-200 text-amber-900 font-bold text-[9px] uppercase">NEW</span>
+                <span>{currentLang === 'EN' ? '★ NFST & NOS AY 2026–27 Online Registration Portal is LIVE.' : '★ एनएफएसटी एवं एनओएस शैक्षणिक सत्र 2026–27 ऑनलाइन पंजीकरण पोर्टल सक्रिय है।'}</span>
+              </span>
+              <span>•</span>
+              <span className="inline-flex items-center gap-2">
+                <span className="px-1.5 py-0.5 rounded bg-emerald-200 text-emerald-900 font-bold text-[9px] uppercase">URGENT</span>
+                <span>{currentLang === 'EN' ? 'Last Date for Institute Level-1 Endorsement: 30th April 2026.' : 'संस्थान स्तरीय सत्यापन की अंतिम तिथि: 30 अप्रैल 2026।'}</span>
+              </span>
+              <span>•</span>
+              <span>{currentLang === 'EN' ? '★ Aadhaar-seeded bank account mandate compulsory under DBT guidelines (GFR 255).' : '★ डीबीटी दिशानिर्देशों (GFR 255) के तहत आधार-सीडेड बैंक खाता अनिवार्य है।'}</span>
+              <span>•</span>
+              <span>{currentLang === 'EN' ? '★ One Time Registration (OTR) is active for fresh ST applicants.' : '★ नए एसटी आवेदकों हेतु वन टाइम रजिस्ट्रेशन (OTR) सेवा उपलब्ध है।'}</span>
+              <span>•</span>
+              <span>{currentLang === 'EN' ? '★ Top Class Education Scheme: Premier Institutes verification window open.' : '★ शीर्ष श्रेणी शिक्षा योजना: उत्कृष्ट संस्थानों के सत्यापन हेतु विंडो खुली है।'}</span>
+            </span>
           </div>
+        </div>
+      </div>
 
-          {/* RIGHT COLUMN: Illustration & Floating "Am I Eligible?" Card (5 Cols) */}
-          <div className="lg:col-span-5 flex flex-col md:flex-row lg:flex-col items-center justify-center gap-6 relative">
-            
-            {/* Artistic Vector Illustration of Tribal Scholars */}
-            <div className="relative w-full max-w-sm flex items-center justify-center select-none">
-              
-              {/* Handwritten Typography Motifs */}
-              <div className="absolute -top-3 left-4 text-xs font-bold text-[#0084d1] rotate-[-8deg] tracking-tight bg-white/70 px-2 py-0.5 rounded-full border border-sky-200/60 shadow-2xs">
-                {currentLang === 'EN' ? '✍️ Educate · Empower · Evolve' : '✍️ शिक्षा · स्वावलंबन · प्रगति'}
-              </div>
+      {/* ========================================================================= */}
+      {/* 1. CENTRAL MoTA SCHOLARSHIP FELICITATION SHOWCASE BANNER                */}
+      {/* Featured Award Ceremony Banner (Girl Receiving Certificate from MoTA)    */}
+      {/* ========================================================================= */}
+      <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 shadow-sm bg-white">
+        
+        {/* Banner Image Container */}
+        <div className="relative w-full overflow-hidden bg-slate-900 group">
+          <img
+            src="/tribal-scholar-award-banner.png"
+            alt="National Tribal Fellowship & Scholarship Beneficiary Felicitation - Ministry of Tribal Affairs"
+            className="w-full h-auto max-h-[380px] sm:max-h-[440px] object-cover object-center select-none transition-transform duration-700 group-hover:scale-[1.01]"
+          />
 
-              <div className="absolute bottom-2 right-4 text-xs font-bold text-teal-700 rotate-[5deg] tracking-tight bg-white/70 px-2 py-0.5 rounded-full border border-teal-200/60 shadow-2xs">
-                {currentLang === 'EN' ? '🇮🇳 Tribal Youth · Stronger India' : '🇮🇳 जनजातीय युवा · समर्थ भारत'}
-              </div>
-
-              {/* High-fidelity Vector SVG Graphic of Indian Scholars */}
-              <svg viewBox="0 0 420 300" className="w-full h-auto drop-shadow-sm max-h-[260px]">
-                <defs>
-                  <linearGradient id="skin1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#c58c63" />
-                    <stop offset="100%" stopColor="#ab7047" />
-                  </linearGradient>
-                  <linearGradient id="skin2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#d2966e" />
-                    <stop offset="100%" stopColor="#b67a51" />
-                  </linearGradient>
-                  <linearGradient id="blueHoodie" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#0284c7" />
-                    <stop offset="100%" stopColor="#0369a1" />
-                  </linearGradient>
-                  <linearGradient id="tealKurti" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#0d9488" />
-                    <stop offset="100%" stopColor="#0f766e" />
-                  </linearGradient>
-                  <linearGradient id="accentCircle" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#bae6fd" />
-                    <stop offset="100%" stopColor="#e0f2fe" />
-                  </linearGradient>
-                </defs>
-
-                {/* Soft Backdrop Shape */}
-                <circle cx="210" cy="150" r="130" fill="url(#accentCircle)" opacity="0.65" />
-                <path d="M70,180 Q100,100 180,80 T340,110 T380,240 Q300,280 180,270 Z" fill="#e0f2fe" opacity="0.4" />
-
-                {/* Floating Academic Badges */}
-                <g transform="translate(290, 45)">
-                  <circle cx="20" cy="20" r="20" fill="#0284c7" />
-                  <path d="M10,20 L20,14 L30,20 L20,26 Z" fill="white" />
-                  <path d="M20,26 L20,31" stroke="white" strokeWidth="2" />
-                  <path d="M14,22.5 L14,27 C14,29 26,29 26,27 L26,22.5" fill="none" stroke="white" strokeWidth="1.5" />
-                </g>
-
-                <g transform="translate(60, 100)">
-                  <circle cx="16" cy="16" r="16" fill="#0284c7" />
-                  <path d="M10,13 Q16,11 22,13 L22,23 Q16,21 10,23 Z" fill="white" />
-                  <line x1="16" y1="12" x2="16" y2="22" stroke="#0284c7" strokeWidth="1" />
-                </g>
-
-                {/* Student 1 (Male Scholar in Blue Hoodie holding folder) */}
-                <g id="maleStudent">
-                  {/* Hair */}
-                  <path d="M150,75 Q180,55 205,75 Q215,95 205,115 Q175,110 150,95 Z" fill="#1e293b" />
-                  {/* Face */}
-                  <path d="M155,85 Q175,75 190,85 Q195,110 180,125 Q165,125 155,105 Z" fill="url(#skin1)" />
-                  {/* Ear */}
-                  <circle cx="152" cy="100" r="6" fill="#ab7047" />
-                  {/* Smile & Eye */}
-                  <circle cx="178" cy="94" r="2.5" fill="#0f172a" />
-                  <path d="M172,108 Q180,114 186,108" stroke="#0f172a" strokeWidth="2" fill="none" strokeLinecap="round" />
-                  {/* Neck */}
-                  <rect x="165" y="120" width="16" height="15" fill="#ab7047" />
-                  {/* Torso & Blue Hoodie */}
-                  <path d="M135,135 Q175,130 215,135 L225,270 L125,270 Z" fill="url(#blueHoodie)" />
-                  {/* White undershirt collar */}
-                  <path d="M165,135 L173,150 L181,135 Z" fill="white" />
-                  {/* Backpack strap */}
-                  <path d="M145,135 Q140,180 148,220" stroke="#0f172a" strokeWidth="7" fill="none" strokeLinecap="round" />
-                  {/* Book folder held in arms */}
-                  <polygon points="175,170 240,160 245,215 180,225" fill="#38bdf8" />
-                  <polygon points="175,170 240,160 238,155 173,165" fill="#f8fafc" />
-                </g>
-
-                {/* Student 2 (Female Scholar in Teal holding textbook) */}
-                <g id="femaleStudent">
-                  {/* Long Black Hair */}
-                  <path d="M235,100 Q265,75 285,100 Q305,130 295,190 Q270,185 250,175 Q235,140 235,100 Z" fill="#0f172a" />
-                  {/* Face */}
-                  <path d="M245,105 Q265,95 280,105 Q285,128 270,140 Q255,140 245,120 Z" fill="url(#skin2)" />
-                  {/* Smile & Eye */}
-                  <circle cx="268" cy="113" r="2.5" fill="#0f172a" />
-                  <path d="M260,126 Q268,132 274,126" stroke="#0f172a" strokeWidth="2" fill="none" strokeLinecap="round" />
-                  {/* Torso & Teal Dress */}
-                  <path d="M230,150 Q265,145 295,150 L305,270 L215,270 Z" fill="url(#tealKurti)" />
-                  {/* Textbook held in hand */}
-                  <polygon points="255,185 305,175 308,235 258,245" fill="#0284c7" />
-                  <polygon points="255,185 305,175 303,170 253,180" fill="#f8fafc" />
-                  {/* Forearm */}
-                  <path d="M235,170 Q255,195 270,205" stroke="#b67a51" strokeWidth="10" fill="none" strokeLinecap="round" />
-                </g>
-
-                {/* Sparkling Stars */}
-                <path d="M90,70 L93,78 L101,81 L93,84 L90,92 L87,84 L79,81 L87,78 Z" fill="#38bdf8" />
-                <path d="M330,130 L332,135 L337,137 L332,139 L330,144 L328,139 L323,137 L328,135 Z" fill="#0284c7" />
-              </svg>
+          {/* Bottom Gradient Overlay & Descriptive Bar */}
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-950/65 to-transparent p-4 sm:p-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+            <div className="max-w-2xl text-white">
+              <h2 className="text-base sm:text-xl md:text-2xl font-black text-white tracking-tight leading-snug drop-shadow-sm">
+                {currentLang === 'HI'
+                  ? 'राष्ट्रीय जनजातीय अध्येतावृत्ति एवं छात्रवृत्ति लाभार्थी सम्मान समारोह'
+                  : 'National ST Fellowship & Scholarship Beneficiary Felicitation Ceremony'}
+              </h2>
+              <p className="text-xs sm:text-sm text-sky-100/95 font-medium leading-relaxed mt-1 max-w-xl drop-shadow-xs">
+                {currentLang === 'HI'
+                  ? 'जनजातीय युवाओं का शैक्षणिक सशक्तिकरण — शत-प्रतिशत प्रत्यक्ष लाभ अंतरण (DBT) एवं पूर्ण पारदर्शी डिजिटल सत्यापन।'
+                  : 'Empowering Tribal Scholars Across Premier Institutions — 100% Direct Benefit Transfer (DBT) & Automated Merit Verification.'}
+              </p>
             </div>
 
-            {/* "Am I Eligible?" Card (Matches Floating Card in Screenshot) */}
-            <div className="w-full max-w-sm bg-white rounded-2xl border border-sky-200/90 shadow-lg p-5 sm:p-6 space-y-4">
-              
-              {/* Header */}
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-sky-50 text-[#0084d1] flex items-center justify-center shrink-0 border border-sky-100">
-                  <ClipboardList className="w-5 h-5 text-[#0084d1]" />
-                </div>
-                <div>
-                  <h3 className="text-base font-black text-slate-900 leading-snug">
-                    {t.home.amIEligibleTitle}
-                  </h3>
-                  <p className="text-xs text-slate-500 leading-tight mt-0.5">
-                    {t.home.amIEligibleSubtitle}
-                  </p>
-                </div>
-              </div>
-
-              {/* 5 Checklist Items with Green Checkmarks */}
-              <div className="space-y-2.5 text-xs text-slate-700 font-semibold">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
-                  </div>
-                  <span>{t.home.checkSt}</span>
-                </div>
-
-                <div className="flex items-center gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
-                  </div>
-                  <span>{t.home.checkCitizen}</span>
-                </div>
-
-                <div className="flex items-center gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
-                  </div>
-                  <span>{t.home.checkEnrolled}</span>
-                </div>
-
-                <div className="flex items-center gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
-                  </div>
-                  <span>{t.home.checkIncome}</span>
-                </div>
-
-                <div className="flex items-center gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
-                  </div>
-                  <span>{t.home.checkDocs}</span>
-                </div>
-              </div>
-
-              {/* Teal CTA Button: Check My Eligibility → */}
+            {/* Quick Action Buttons inside Banner */}
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  const elem = document.getElementById('schemes-section');
+                  if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-4 py-2 rounded-xl bg-[#0084d1] hover:bg-[#0074b8] text-white font-bold text-xs sm:text-sm shadow-md transition cursor-pointer flex items-center gap-1.5"
+              >
+                <span>{currentLang === 'HI' ? 'छात्रवृत्ति योजनाएं देखें' : 'View ST Schemes'}</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
               <button
                 type="button"
                 onClick={() => setIsEligibilityOpen(true)}
-                className="w-full py-3 px-4 bg-[#00a3b8] hover:bg-[#008f9f] text-white font-bold rounded-xl text-xs transition shadow-md flex items-center justify-center gap-2 cursor-pointer group"
+                className="px-3.5 py-2 rounded-xl bg-white/90 hover:bg-white text-slate-900 font-bold text-xs sm:text-sm shadow-md transition cursor-pointer flex items-center gap-1.5"
               >
-                <span>{t.home.checkEligibilityBtn}</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span>{currentLang === 'HI' ? 'पात्रता जांचें' : 'Check Eligibility'}</span>
               </button>
-
             </div>
-
           </div>
-
         </div>
 
+      </div>
+
+      {/* ========================================================================= */}
+      {/* ========================================================================= */}
+      {/* 2. COMPACT SEARCH & SCHEMES FILTER TOOLBAR                               */}
+      {/* ========================================================================= */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs p-3.5 sm:p-4">
+        <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row items-center gap-3">
+          <div className="flex-1 w-full flex items-center rounded-xl bg-slate-50 border border-slate-200 px-3.5 py-2 focus-within:bg-white focus-within:border-[#0084d1] focus-within:ring-2 focus-within:ring-sky-100 transition">
+            <Search className="w-4 h-4 text-slate-400 shrink-0 mr-2.5" />
+            <input
+              id="hero-search-input"
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={t.home.searchPlaceholder}
+              className="w-full text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none bg-transparent"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full sm:w-auto bg-[#0084d1] hover:bg-[#0074b8] text-white px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition shadow-2xs cursor-pointer shrink-0"
+          >
+            {t.home.searchBtn}
+          </button>
+        </form>
+
+        {/* Quick Filter Pill Tags */}
+        <div className="flex flex-wrap items-center gap-2 pt-2.5 mt-2 border-t border-slate-100">
+          <span className="text-[11px] font-bold text-slate-400 mr-1">
+            {t.home.popularTags || 'Popular:'}
+          </span>
+          <button
+            type="button"
+            onClick={() => handleTagClick('Post Matric')}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-slate-700 bg-slate-50 hover:bg-sky-50 hover:text-[#0084d1] border border-slate-200 transition cursor-pointer"
+          >
+            <span>{t.home.tagPostMatric}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleTagClick('Pre Matric')}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-slate-700 bg-slate-50 hover:bg-sky-50 hover:text-[#0084d1] border border-slate-200 transition cursor-pointer"
+          >
+            <span>{t.home.tagPreMatric}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleTagClick('Top Class')}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-slate-700 bg-slate-50 hover:bg-sky-50 hover:text-[#0084d1] border border-slate-200 transition cursor-pointer"
+          >
+            <span>{t.home.tagTopClass}</span>
+          </button>
+        </div>
       </div>
 
       {/* ========================================================================= */}
@@ -605,133 +456,69 @@ export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
           </p>
         </div>
 
-        {/* CARD 2: My Application Progress (4.2 Cols) */}
+        {/* CARD 2: "Am I Eligible?" Scheme Eligibility Radar */}
         <div className="lg:col-span-4 bg-white rounded-2xl border border-slate-200 shadow-xs p-5 flex flex-col justify-between space-y-4">
-          
           <div>
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
               <div className="flex items-center gap-2">
-                <FileText className="w-4 h-4 text-[#0084d1]" />
+                <ClipboardList className="w-4 h-4 text-[#0084d1]" />
                 <h2 className="text-sm font-bold text-slate-900">
-                  {t.home.appProgressTitle}
+                  {t.home.amIEligibleTitle}
                 </h2>
               </div>
-              <button
-                onClick={() => {
-                  if (!currentUser) onOpenAuth('STUDENT_LOGIN');
-                  else onNavigateTab('student', 'timeline');
-                }}
-                className="text-xs font-semibold text-[#0084d1] hover:underline flex items-center gap-1 cursor-pointer"
-              >
-                <span>{t.home.viewAll}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-
-            {/* Application Card Top Details */}
-            <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-blue-100 text-[#0084d1] flex items-center justify-center shrink-0">
-                  <FileText className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-xs font-bold text-slate-900 leading-snug">
-                    {trackedStatus.scheme}
-                  </h3>
-                  <p className="text-[11px] text-slate-500 font-mono">
-                    {currentLang === 'EN' ? 'Application ID' : 'आवेदन संख्या'}: {trackedStatus.id}
-                  </p>
-                </div>
-              </div>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
-                {t.home.inProgressBadge}
+              <span className="text-[10px] font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-200">
+                {currentLang === 'EN' ? 'Self-Check' : 'स्वयं-जांच'}
               </span>
             </div>
 
-            {/* 4-Stage Horizontal Stepper */}
-            <div className="pt-4 px-2">
-              <div className="relative flex items-center justify-between">
-                
-                {/* Connecting Track Line */}
-                <div className="absolute top-3.5 left-4 right-4 h-0.5 bg-slate-200 -translate-y-1/2 z-0" />
-                <div 
-                  className="absolute top-3.5 left-4 h-0.5 bg-[#0084d1] -translate-y-1/2 z-0 transition-all duration-500"
-                  style={{ width: trackedStatus.step === 1 ? '0%' : trackedStatus.step === 2 ? '33%' : trackedStatus.step === 3 ? '66%' : '100%' }}
-                />
-
-                {/* Step 1: Submitted */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-7 h-7 rounded-full bg-[#0084d1] text-white flex items-center justify-center text-xs font-bold shadow-xs">
-                    <Check className="w-4 h-4 stroke-[3]" />
-                  </div>
-                  <span className="text-[10px] font-bold text-slate-800 mt-1">{t.home.stepSubmitted}</span>
-                  <span className="text-[9px] text-slate-400">{trackedStatus.updatedAt}</span>
+            {/* 5 Checklist Items with Green Checkmarks */}
+            <div className="space-y-2.5 text-xs text-slate-700 font-semibold">
+              <div className="flex items-center gap-2.5">
+                <div className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3 stroke-[3]" />
                 </div>
-
-                {/* Step 2: Under Verification */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shadow-xs ${
-                    trackedStatus.step >= 2 ? 'bg-[#0084d1] text-white ring-4 ring-sky-100' : 'bg-slate-200 text-slate-600'
-                  }`}>
-                    {trackedStatus.step > 2 ? <Check className="w-4 h-4 stroke-[3]" /> : '2'}
-                  </div>
-                  <span className="text-[10px] font-bold text-slate-800 mt-1">{t.home.stepUnderVerification}</span>
-                </div>
-
-                {/* Step 3: Sanction */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shadow-xs ${
-                    trackedStatus.step >= 3 ? 'bg-[#0084d1] text-white' : 'bg-slate-200 text-slate-500'
-                  }`}>
-                    {trackedStatus.step > 3 ? <Check className="w-4 h-4" /> : '3'}
-                  </div>
-                  <span className="text-[10px] font-medium text-slate-600 mt-1">{t.home.stepSanction}</span>
-                </div>
-
-                {/* Step 4: Disbursal */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shadow-xs ${
-                    trackedStatus.step >= 4 ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-slate-500'
-                  }`}>
-                    4
-                  </div>
-                  <span className="text-[10px] font-medium text-slate-600 mt-1">{t.home.stepDisbursal}</span>
-                </div>
-
+                <span className="text-[11px]">{t.home.checkSt}</span>
               </div>
-            </div>
 
-            {/* Status Message Info Box */}
-            <div className="mt-4 p-3 bg-sky-50/80 border border-sky-100 rounded-xl text-xs text-slate-700 flex items-start gap-2.5">
-              <div className="w-4 h-4 rounded-full bg-[#0084d1] text-white flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold">
-                i
+              <div className="flex items-center gap-2.5">
+                <div className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3 stroke-[3]" />
+                </div>
+                <span className="text-[11px]">{t.home.checkCitizen}</span>
               </div>
-              <p className="text-[11px] leading-relaxed">
-                {currentLang === 'EN' 
-                  ? trackedStatus.status 
-                  : 'संस्थागत बोनाफाइड सत्यापन प्रगति पर है। अगला अपडेट 48 घंटों में अपेक्षित है।'}
-              </p>
+
+              <div className="flex items-center gap-2.5">
+                <div className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3 stroke-[3]" />
+                </div>
+                <span className="text-[11px]">{t.home.checkEnrolled}</span>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <div className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3 stroke-[3]" />
+                </div>
+                <span className="text-[11px]">{t.home.checkIncome}</span>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <div className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3 stroke-[3]" />
+                </div>
+                <span className="text-[11px]">{t.home.checkDocs}</span>
+              </div>
             </div>
           </div>
 
-          {/* Quick Track Input */}
-          <form onSubmit={handleTrackSubmit} className="flex gap-2">
-            <input
-              type="text"
-              value={trackerId}
-              onChange={(e) => setTrackerId(e.target.value)}
-              placeholder={currentLang === 'EN' ? "Track App ID (e.g. ST2026A38472)..." : "आवेदन संख्या दर्ज करें (e.g. ST2026A38472)..."}
-              className="flex-1 px-3 py-1.5 border border-slate-300 rounded-lg text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#0084d1]"
-            />
-            <button
-              type="submit"
-              className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg text-xs transition cursor-pointer shrink-0"
-            >
-              {t.home.trackBtn}
-            </button>
-          </form>
-
+          <button
+            type="button"
+            onClick={() => setIsEligibilityOpen(true)}
+            className="w-full py-2.5 px-4 bg-[#00a3b8] hover:bg-[#008f9f] text-white font-bold rounded-xl text-xs transition shadow-2xs flex items-center justify-center gap-2 cursor-pointer group"
+          >
+            <span>{t.home.checkEligibilityBtn}</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
 
         {/* CARD 3: Latest Announcements (4.0 Cols) */}

@@ -134,6 +134,7 @@ export interface Translations {
     tabDeficiency: string;
     tabTimeline: string;
     tabPostSelection: string;
+    tabGrievance: string;
     activeAppsTitle: string;
     activeAppsCount: string;
     noAppsFound: string;
@@ -382,6 +383,7 @@ export const translations: Record<Language, Translations> = {
       tabDeficiency: 'Deficiency Desk',
       tabTimeline: 'Timeline',
       tabPostSelection: 'Post Selection',
+      tabGrievance: 'Grievance Desk',
       activeAppsTitle: 'Active Scholarship Applications',
       activeAppsCount: 'Applications On Record',
       noAppsFound: 'No scholarship applications on record. Click "Apply for Scholarship" above to start your fresh application.',
@@ -400,10 +402,10 @@ export const translations: Record<Language, Translations> = {
       stage3Name: '3. Ministry Scrutiny Committee',
       stage4Name: '4. Award Sanction & DBT Transfer',
       wizardTitle: 'Scholarship Application Form (AY 2026–27)',
-      wizardStep1: '1. Personal Details',
+      wizardStep1: '1. Document Uploads',
       wizardStep2: '2. Academic Details',
-      wizardStep3: '3. Document Uploads',
-      wizardStep4: '4. Review & Submit',
+      wizardStep3: '3. Review & Submit',
+      wizardStep4: '4. Final Confirmation',
       personalDetails: 'Applicant Personal Details',
       fullName: 'Full Name (as per Aadhaar)',
       dob: 'Date of Birth',
@@ -651,6 +653,7 @@ export const translations: Record<Language, Translations> = {
       tabDeficiency: 'कमी निवारण पटल',
       tabTimeline: 'समयरेखा',
       tabPostSelection: 'चयन उपरांत (DBT)',
+      tabGrievance: 'शिकायत निवारण',
       activeAppsTitle: 'सक्रिय छात्रवृत्ति आवेदन',
       activeAppsCount: 'दर्ज आवेदन',
       noAppsFound: 'वर्तमान में कोई छात्रवृत्ति आवेदन दर्ज नहीं है। अपना नया आवेदन प्रारंभ करने के लिए ऊपर "छात्रवृत्ति हेतु आवेदन करें" पर क्लिक करें।',
@@ -669,10 +672,10 @@ export const translations: Record<Language, Translations> = {
       stage3Name: '3. मंत्रालय संवीक्षा समिति',
       stage4Name: '4. अंतिम स्वीकृति एवं डीबीटी संवितरण',
       wizardTitle: 'छात्रवृत्ति आवेदन पत्र (सत्र 2026–27)',
-      wizardStep1: '1. व्यक्तिगत विवरण',
+      wizardStep1: '1. दस्तावेज़ अपलोड',
       wizardStep2: '2. शैक्षणिक विवरण',
-      wizardStep3: '3. दस्तावेज़ अपलोड',
-      wizardStep4: '4. समीक्षा एवं सबमिट',
+      wizardStep3: '3. समीक्षा एवं सबमिट',
+      wizardStep4: '4. अंतिम पुष्टि',
       personalDetails: 'आवेदक का व्यक्तिगत विवरण',
       fullName: 'पूरा नाम (आधार अनुसार)',
       dob: 'जन्म तिथि',

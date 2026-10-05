@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import emblemLogo from '../assets/emblem.svg';
+import digitalIndiaLogo from '../assets/digital-india-logo.svg';
 import { 
   Shield, 
   User as UserIcon, 
@@ -75,6 +76,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const t = translations[lang || 'EN'].header;
   const schemesT = translations[lang || 'EN'].schemes;
+  const currentLang = (lang || 'EN') as Language;
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
@@ -103,11 +105,11 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-2.5">
         <div className="flex items-center justify-between gap-3">
           
-          {/* Left Brand Identity: Emblem + GoI + National Scholarship Portal */}
+          {/* Left Brand Identity: Emblem + GoI + Janjatiya Vidya Setu Portal */}
           <div 
             onClick={() => onTabChange('home')}
             className="flex items-center gap-2 sm:gap-3 cursor-pointer group select-none min-w-0"
-            title="National Scholarship Portal - Ministry of Tribal Affairs"
+            title="Janjatiya Vidya Setu Portal - Ministry of Tribal Affairs"
           >
             {/* National Emblem */}
             <div className="flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -134,23 +136,39 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Vertical Divider */}
             <div className="h-9 w-px bg-slate-200 mx-1 sm:mx-2 hidden sm:block shrink-0" />
 
-            {/* National Scholarship Portal Brand */}
+            {/* Janjatiya Vidya Setu Portal Brand */}
             <div className="hidden sm:flex flex-col justify-center min-w-0">
               <div className="flex items-center gap-2">
-                <span className="font-black text-sm sm:text-base text-slate-900 tracking-tight leading-tight">
-                  National Scholarship Portal
+                <span className="font-black text-sm sm:text-base text-slate-900 tracking-tight leading-tight uppercase">
+                  {lang === 'HI' ? 'जनजातीय विद्या सेतु पोर्टल' : 'JANJATIYA VIDYA SETU PORTAL'}
                 </span>
               </div>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="h-1.5 w-6 bg-linear-to-r from-orange-500 via-white to-emerald-600 rounded-full border border-slate-300 inline-block" />
-                <span className="text-[10px] sm:text-[11px] font-bold text-[#0084d1]">
-                  For ST Students
+                <span className="h-1 w-3.5 bg-linear-to-r from-orange-500 via-white to-emerald-600 rounded-full border border-slate-300 inline-block shrink-0" />
+                <span className="text-[9px] sm:text-[9.5px] font-semibold text-slate-500 tracking-tight">
+                  {lang === 'HI' ? '(अनुसूचित जनजाति राष्ट्रीय छात्रवृत्ति पोर्टल)' : '(National Digital Scholarship Portal for ST)'}
                 </span>
               </div>
-              <p className="text-[9px] text-slate-400 font-medium leading-none truncate mt-0.5 hidden lg:block">
+              <p className="text-[8.5px] text-slate-400 font-normal leading-none truncate mt-0.5 hidden lg:block">
                 Access · Learn · Grow · Build a Brighter India
               </p>
             </div>
+          </div>
+
+          {/* Azadi Ka Amrit Mahotsav & 150th Birsa Munda Janjatiya Gaurav Varsh (Official MoTA Emblems) */}
+          <div className="hidden xl:flex items-center gap-2.5 pl-3 border-l border-slate-200 shrink-0 select-none">
+            <img 
+              src="/akam-logo.png" 
+              alt="Azadi Ka Amrit Mahotsav" 
+              className="h-7 sm:h-8 w-auto object-contain"
+              title="Azadi Ka Amrit Mahotsav"
+            />
+            <img 
+              src="/birsa-munda-150-logo.png" 
+              alt="150th Birth Anniversary of Bhagwan Birsa Munda - Janjatiya Gaurav Varsh" 
+              className="h-7 sm:h-8 w-auto object-contain"
+              title="150th Birth Anniversary of Bhagwan Birsa Munda - Janjatiya Gaurav Varsh"
+            />
           </div>
 
           {/* Right Action Zone: Accessibility, Language, Login & Register Buttons, Digital India */}
@@ -284,21 +302,28 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
 
                 {showUserMenu && (
-                  <div className="absolute right-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 animate-scale-up">
-                    <div className="px-3 py-2 border-b border-slate-100 mb-1">
-                      <p className="text-[11px] font-bold text-slate-800">{currentUser.name}</p>
+                  <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white border border-slate-200 rounded-xl shadow-2xl z-50 p-2 animate-scale-up max-h-[85vh] flex flex-col">
+                    {/* Header info */}
+                    <div className="px-3 py-2 border-b border-slate-100 mb-1 shrink-0 bg-slate-50/80 rounded-lg">
+                      <p className="text-xs font-bold text-slate-900">{currentUser.name}</p>
                       <p className="text-[10px] text-slate-500 truncate">{currentUser.email}</p>
-                      <span className={`inline-block mt-1 text-[10px] px-1.5 py-0.5 rounded border ${roleLabelMap[currentUser.role]?.badgeColor || ''}`}>
+                      <span className={`inline-block mt-1 text-[10px] px-2 py-0.5 rounded-full font-bold border ${roleLabelMap[currentUser.role]?.badgeColor || ''}`}>
                         {roleLabelMap[currentUser.role]?.label || currentUser.role}
                       </span>
                     </div>
 
-                    {/* Persona Switcher for Quick Evaluation */}
-                    <div className="py-1">
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1">
-                        {t.switchPersona}
-                      </p>
-                      <div className="space-y-0.5">
+                    {/* Scrollable Persona Switcher Container */}
+                    <div className="py-1 flex-1 overflow-y-auto max-h-52 pr-1 space-y-1">
+                      <div className="sticky top-0 bg-white py-1 px-2 z-10 border-b border-slate-100 flex items-center justify-between">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                          {t.switchPersona}
+                        </p>
+                        <span className="text-[9px] text-[#0084d1] font-bold flex items-center gap-0.5">
+                          <span>Scroll down</span>
+                          <ChevronDown className="w-3 h-3 animate-bounce" />
+                        </span>
+                      </div>
+                      <div className="space-y-0.5 pt-1">
                         {allDemoUsers.map((u) => (
                           <button
                             key={u.id}
@@ -307,25 +332,29 @@ export const Header: React.FC<HeaderProps> = ({
                               setShowUserMenu(false);
                             }}
                             className={`w-full flex items-center justify-between p-2 rounded-lg text-left text-xs transition cursor-pointer ${
-                              currentUser.id === u.id ? 'bg-sky-50 text-[#0084d1] font-bold' : 'hover:bg-slate-50 text-slate-700'
+                              currentUser.id === u.id ? 'bg-sky-50 text-[#0084d1] font-bold border border-sky-200' : 'hover:bg-slate-50 text-slate-700'
                             }`}
                           >
-                            <span className="truncate">{u.name}</span>
-                            <span className="text-[9px] text-slate-400 uppercase font-mono ml-2 shrink-0">
-                              {u.role.replace('_', ' ')}
+                            <div className="min-w-0">
+                              <span className="truncate block font-semibold">{u.name}</span>
+                              <span className="text-[10px] text-slate-400 truncate block">{u.role.replace('_', ' ')}</span>
+                            </div>
+                            <span className="text-[9px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded font-mono uppercase ml-2 shrink-0">
+                              {u.role.split('_')[0]}
                             </span>
                           </button>
                         ))}
                       </div>
                     </div>
 
-                    <div className="border-t border-slate-100 mt-2 pt-1">
+                    {/* Sign Out Action: Sticky / Docked at Bottom */}
+                    <div className="border-t border-slate-200 mt-2 pt-2 shrink-0">
                       <button
                         onClick={() => {
                           setShowUserMenu(false);
                           onLogout();
                         }}
-                        className="w-full flex items-center gap-2 p-2 rounded-lg text-left text-xs text-rose-700 hover:bg-rose-50 font-semibold transition cursor-pointer"
+                        className="w-full flex items-center justify-center gap-2 p-2 rounded-lg text-xs text-rose-700 hover:bg-rose-50 font-bold transition cursor-pointer border border-rose-200/80 bg-rose-50/40 shadow-2xs"
                       >
                         <LogOut className="w-3.5 h-3.5" />
                         <span>{t.signOut}</span>
@@ -336,17 +365,14 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
             )}
 
-            {/* Digital India Brand Emblem (Rightmost item in reference) */}
-            <div className="hidden xl:flex items-center gap-1.5 pl-2 border-l border-slate-200">
-              <div className="flex flex-col text-right">
-                <span className="font-black text-xs text-slate-800 tracking-tight leading-tight flex items-center gap-1 justify-end">
-                  <span className="text-[#0084d1]">Digital</span>
-                  <span className="text-orange-500">India</span>
-                </span>
-                <span className="text-[9px] text-slate-400 font-semibold leading-none">
-                  Power To Empower
-                </span>
-              </div>
+            {/* Official Digital India Logo (Rightmost item in reference) */}
+            <div className="hidden lg:flex items-center pl-2.5 border-l border-slate-200 shrink-0">
+              <img
+                src={digitalIndiaLogo}
+                alt="Digital India - Power To Empower"
+                className="h-8 sm:h-9 w-auto object-contain hover:scale-105 transition-transform"
+                title="Digital India - Power To Empower"
+              />
             </div>
 
             {/* 3-Dot Features Button */}
@@ -373,8 +399,12 @@ export const Header: React.FC<HeaderProps> = ({
       {/* and Student/Public navigation for Citizen/Student view (Resolves User Request) */}
       {/* ========================================================================= */}
       {(() => {
-        const isOfficer = activeTab === 'officer' || currentUser?.role === 'MOTA_OFFICER' || currentUser?.role === 'INSTITUTION_VERIFIER';
-        const isAdmin = activeTab === 'admin' || currentUser?.role === 'ADMIN' || currentUser?.role === 'SUPER_ADMIN';
+        const isOfficerUser = currentUser?.role === 'MOTA_OFFICER' || currentUser?.role === 'INSTITUTION_VERIFIER';
+        const isAdminUser = currentUser?.role === 'ADMIN' || currentUser?.role === 'SUPER_ADMIN';
+
+        const isOfficerDesk = isOfficerUser || activeTab === 'officer';
+        const isAdminDesk = !isOfficerDesk && (isAdminUser || activeTab === 'admin');
+        const isStudentDesk = !isOfficerDesk && !isAdminDesk && (activeTab === 'student' || currentUser?.role === 'STUDENT');
 
         return (
           <div className="border-t border-slate-200/80 bg-white">
@@ -382,9 +412,9 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="flex items-center justify-between h-11 sm:h-12 gap-2">
                 
                 {/* ------------------------------------------------------------- */}
-                {/* CASE A: OFFICER / INO WORKBENCH NAVIGATION (No student strip) */}
+                {/* CASE A: OFFICER / INO WORKBENCH NAVIGATION (Zero student strip) */}
                 {/* ------------------------------------------------------------- */}
-                {isOfficer ? (
+                {isOfficerDesk ? (
                   <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto scrollbar-none py-1">
                     <button
                       onClick={() => onTabChange('officer', 'verification')}
@@ -464,9 +494,9 @@ export const Header: React.FC<HeaderProps> = ({
                       <span>{t.navPublicPortal}</span>
                     </button>
                   </nav>
-                ) : isAdmin ? (
+                ) : isAdminDesk ? (
                   /* ------------------------------------------------------------- */
-                  /* CASE B: SYSTEM ADMIN NAVIGATION (No student strip) */
+                  /* CASE B: SYSTEM ADMIN NAVIGATION (Zero student strip) */
                   /* ------------------------------------------------------------- */
                   <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto scrollbar-none py-1">
                     <button
@@ -533,20 +563,16 @@ export const Header: React.FC<HeaderProps> = ({
                       <span>{t.navPublicPortal}</span>
                     </button>
                   </nav>
-                ) : (
+                ) : isStudentDesk ? (
                   /* ------------------------------------------------------------- */
-                  /* CASE C: STUDENT & CITIZEN PORTAL (All Buttons Functional) */
+                  /* CASE C: STUDENT WORKBENCH NAVIGATION (Strictly for Student view) */
                   /* ------------------------------------------------------------- */
                   <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto scrollbar-none py-1">
                     
                     {/* 1. Home Tab */}
                     <button
                       onClick={() => onTabChange('home')}
-                      className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold transition shadow-2xs cursor-pointer shrink-0 ${
-                        activeTab === 'home'
-                          ? 'bg-[#0070ba] text-white'
-                          : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
-                      }`}
+                      className="flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition shadow-2xs cursor-pointer shrink-0"
                     >
                       <Home className="w-3.5 h-3.5" />
                       <span>{t.navHome}</span>
@@ -557,18 +583,9 @@ export const Header: React.FC<HeaderProps> = ({
                       <div className="flex items-center bg-transparent rounded-lg">
                         <button
                           onClick={() => {
-                            if (activeTab === 'home') {
-                              const elem = document.getElementById('schemes-section');
-                              if (elem) elem.scrollIntoView({ behavior: 'smooth' });
-                            } else {
-                              onTabChange('student', 'schemes');
-                            }
+                            onTabChange('student', 'schemes');
                           }}
-                          className={`flex items-center gap-1 pl-3 pr-1 py-1.5 rounded-l-lg text-xs font-semibold transition cursor-pointer ${
-                            activeTab === 'global-bridge' || activeTab === 'student'
-                              ? 'text-[#0070ba] font-bold bg-sky-50'
-                              : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
-                          }`}
+                          className="flex items-center gap-1 pl-3 pr-1 py-1.5 rounded-l-lg text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer"
                           title="View all 4 Central ST Scholarships"
                         >
                           <Award className="w-3.5 h-3.5 text-[#0084d1]" />
@@ -576,11 +593,7 @@ export const Header: React.FC<HeaderProps> = ({
                         </button>
                         <button
                           onClick={() => setShowScholarshipsDropdown(!showScholarshipsDropdown)}
-                          className={`pr-2 pl-1 py-1.5 rounded-r-lg text-xs transition cursor-pointer ${
-                            activeTab === 'global-bridge' || activeTab === 'student'
-                              ? 'text-[#0070ba] font-bold bg-sky-50'
-                              : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
-                          }`}
+                          className="pr-2 pl-1 py-1.5 rounded-r-lg text-xs transition cursor-pointer text-slate-700 hover:text-slate-900 hover:bg-slate-100"
                           aria-label="Toggle all 4 scholarships"
                         >
                           <ChevronDown className="w-3 h-3 text-slate-400" />
@@ -596,12 +609,8 @@ export const Header: React.FC<HeaderProps> = ({
                           {/* Scheme 1: NFST */}
                           <button
                             onClick={() => {
-                              onTabChange('home');
+                              onTabChange('student', 'schemes');
                               setShowScholarshipsDropdown(false);
-                              setTimeout(() => {
-                                const elem = document.getElementById('schemes-section');
-                                if (elem) elem.scrollIntoView({ behavior: 'smooth' });
-                              }, 100);
                             }}
                             className="w-full px-3.5 py-2 text-left hover:bg-slate-50 transition cursor-pointer flex flex-col"
                           >
@@ -630,12 +639,8 @@ export const Header: React.FC<HeaderProps> = ({
                           {/* Scheme 3: Top Class */}
                           <button
                             onClick={() => {
-                              onTabChange('home');
+                              onTabChange('student', 'schemes');
                               setShowScholarshipsDropdown(false);
-                              setTimeout(() => {
-                                const elem = document.getElementById('schemes-section');
-                                if (elem) elem.scrollIntoView({ behavior: 'smooth' });
-                              }, 100);
                             }}
                             className="w-full px-3.5 py-2 text-left hover:bg-slate-50 transition cursor-pointer flex flex-col"
                           >
@@ -649,12 +654,8 @@ export const Header: React.FC<HeaderProps> = ({
                           {/* Scheme 4: Post Matric */}
                           <button
                             onClick={() => {
-                              onTabChange('home');
+                              onTabChange('student', 'schemes');
                               setShowScholarshipsDropdown(false);
-                              setTimeout(() => {
-                                const elem = document.getElementById('schemes-section');
-                                if (elem) elem.scrollIntoView({ behavior: 'smooth' });
-                              }, 100);
                             }}
                             className="w-full px-3.5 py-2 text-left hover:bg-slate-50 transition cursor-pointer flex flex-col"
                           >
@@ -671,11 +672,7 @@ export const Header: React.FC<HeaderProps> = ({
                     {/* 3. My Applications */}
                     <button
                       onClick={() => onTabChange('student', 'dashboard')}
-                      className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0 ${
-                        activeTab === 'student'
-                          ? 'text-[#0070ba] font-bold bg-sky-50'
-                          : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
-                      }`}
+                      className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold text-[#0070ba] bg-sky-50 transition cursor-pointer shrink-0"
                       title="Direct access to your applications"
                     >
                       <FileText className="w-3.5 h-3.5 text-[#0084d1]" />
@@ -724,7 +721,7 @@ export const Header: React.FC<HeaderProps> = ({
 
                     {/* 8. Grievance Desk */}
                     <button
-                      onClick={() => onTabChange('student', 'deficiency')}
+                      onClick={() => onTabChange('student', 'grievance')}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer shrink-0"
                       title="File or Track Grievance"
                     >
@@ -745,28 +742,168 @@ export const Header: React.FC<HeaderProps> = ({
                     {/* 10. SLA Monitor */}
                     <button
                       onClick={() => onTabChange('delay-monitor')}
-                      className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0 ${
-                        activeTab === 'delay-monitor' ? 'bg-sky-50 text-[#0070ba] font-bold' : 'text-slate-600 hover:bg-slate-100'
-                      }`}
+                      className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 transition cursor-pointer shrink-0"
                       title="Public Service Guarantee & Disposal Deadlines"
                     >
                       <Clock className="w-3.5 h-3.5 text-slate-500" />
                       <span>{t.navSlaMonitor}</span>
                     </button>
                   </nav>
+                ) : (
+                  /* ------------------------------------------------------------- */
+                  /* CASE D: CITIZEN & PUBLIC HOME NAVIGATION (Clean Public Portal) */
+                  /* ------------------------------------------------------------- */
+                  <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto scrollbar-none py-1">
+                    <button
+                      onClick={() => {
+                        onTabChange('home');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold bg-[#0070ba] text-white transition shadow-2xs cursor-pointer shrink-0"
+                    >
+                      <Home className="w-3.5 h-3.5" />
+                      <span>{t.navHome}</span>
+                    </button>
+
+                    {/* All 4 Scholarships Dropdown */}
+                    <div className="relative shrink-0">
+                      <div className="flex items-center bg-transparent rounded-lg">
+                        <button
+                          onClick={() => {
+                            const elem = document.getElementById('schemes-section');
+                            if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                          className="flex items-center gap-1 pl-3 pr-1 py-1.5 rounded-l-lg text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer"
+                        >
+                          <Award className="w-3.5 h-3.5 text-[#0084d1]" />
+                          <span>{t.navScholarships}</span>
+                        </button>
+                        <button
+                          onClick={() => setShowScholarshipsDropdown(!showScholarshipsDropdown)}
+                          className="pr-2 pl-1 py-1.5 rounded-r-lg text-xs transition cursor-pointer text-slate-700 hover:text-slate-900 hover:bg-slate-100"
+                        >
+                          <ChevronDown className="w-3 h-3 text-slate-400" />
+                        </button>
+                      </div>
+
+                      {showScholarshipsDropdown && (
+                        <div className="absolute left-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50 text-xs animate-scale-up">
+                          <div className="px-3.5 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                            {t.all4Schemes}
+                          </div>
+                          
+                          <button
+                            onClick={() => {
+                              setShowScholarshipsDropdown(false);
+                              const elem = document.getElementById('schemes-section');
+                              if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            className="w-full px-3.5 py-2 text-left hover:bg-slate-50 transition cursor-pointer flex flex-col"
+                          >
+                            <span className="font-bold text-slate-900 flex items-center justify-between">
+                              <span>1. {schemesT.NFST.title}</span>
+                              <span className="text-[10px] bg-sky-50 text-[#0084d1] px-1.5 py-0.2 rounded font-bold">{schemesT.NFST.slots}</span>
+                            </span>
+                            <span className="text-[11px] text-slate-500">{schemesT.NFST.level}</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              setShowScholarshipsDropdown(false);
+                              onTabChange('global-bridge');
+                            }}
+                            className="w-full px-3.5 py-2 text-left hover:bg-slate-50 transition cursor-pointer flex flex-col"
+                          >
+                            <span className="font-bold text-slate-900 flex items-center justify-between">
+                              <span>2. {schemesT.NOS.title}</span>
+                              <span className="text-[10px] bg-emerald-50 text-emerald-800 px-1.5 py-0.2 rounded font-bold">{schemesT.NOS.slots}</span>
+                            </span>
+                            <span className="text-[11px] text-slate-500">{schemesT.NOS.level}</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              setShowScholarshipsDropdown(false);
+                              const elem = document.getElementById('schemes-section');
+                              if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            className="w-full px-3.5 py-2 text-left hover:bg-slate-50 transition cursor-pointer flex flex-col"
+                          >
+                            <span className="font-bold text-slate-900 flex items-center justify-between">
+                              <span>3. {schemesT.TOP_CLASS.title}</span>
+                              <span className="text-[10px] bg-purple-50 text-purple-700 px-1.5 py-0.2 rounded font-bold">{schemesT.TOP_CLASS.slots}</span>
+                            </span>
+                            <span className="text-[11px] text-slate-500">{schemesT.TOP_CLASS.level}</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              setShowScholarshipsDropdown(false);
+                              const elem = document.getElementById('schemes-section');
+                              if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            className="w-full px-3.5 py-2 text-left hover:bg-slate-50 transition cursor-pointer flex flex-col"
+                          >
+                            <span className="font-bold text-slate-900 flex items-center justify-between">
+                              <span>4. {schemesT.POST_MATRIC.title}</span>
+                              <span className="text-[10px] bg-amber-50 text-amber-800 px-1.5 py-0.2 rounded font-bold">{schemesT.POST_MATRIC.slots}</span>
+                            </span>
+                            <span className="text-[11px] text-slate-500">{schemesT.POST_MATRIC.level}</span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        const trigger = document.querySelector('button[type="button"][class*="bg-[#00a3b8]"]') as HTMLButtonElement;
+                        if (trigger) trigger.click();
+                        else {
+                          const elem = document.getElementById('schemes-section');
+                          if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer shrink-0"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                      <span>{currentLang === 'EN' ? 'Check Eligibility' : 'पात्रता जांचें'}</span>
+                    </button>
+
+                    <button
+                      onClick={() => onTabChange('chatbot')}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer shrink-0"
+                    >
+                      <Headphones className="w-3.5 h-3.5 text-[#0084d1]" />
+                      <span>{t.navSupport}</span>
+                    </button>
+
+                    {/* Quick Access to Student Workspace if user logged in as Student */}
+                    {currentUser?.role === 'STUDENT' && (
+                      <button
+                        onClick={() => onTabChange('student', 'dashboard')}
+                        className="ml-2 flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold text-[#0070ba] bg-sky-50 border border-sky-200 hover:bg-sky-100 transition cursor-pointer shrink-0"
+                      >
+                        <span>{currentLang === 'EN' ? 'My Applications ➔' : 'मेरे आवेदन ➔'}</span>
+                      </button>
+                    )}
+                  </nav>
                 )}
 
                 {/* Right Status / Motto Display */}
                 <div className="hidden lg:flex items-center gap-2 text-[11px] font-medium text-slate-600 shrink-0">
-                  {isOfficer ? (
+                  {isOfficerDesk ? (
                     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       <span>Designated Verification & Scrutiny Desk</span>
                     </span>
-                  ) : isAdmin ? (
+                  ) : isAdminDesk ? (
                     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-sky-50 text-[#0070ba] border border-sky-200 font-bold">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#0084d1] animate-pulse" />
                       <span>Policy Governance & Dynamic Rules Engine</span>
+                    </span>
+                  ) : isStudentDesk ? (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-sky-50 text-[#0070ba] border border-sky-200 font-bold">
+                      <span>Scholar & Beneficiary Workspace · AY 2026-27</span>
                     </span>
                   ) : (
                     <>

@@ -67,7 +67,7 @@ Main is website ke **sabhi features, administrative modules aur scholarship guid
 🔹 **Administrators & Evaluators ke liye:**
 - **Version Governance:** Policy lifecycle (Draft -> Approved -> Published) aur rollback kaise kaam karta hai
 - **Scheme Execution Engine:** 2 schemes (NFST vs NOS) ka live auto-flagging aur auto-clear demo
-- **Visual Rules Builder:** No-code sliders se income limits, marks cutoffs aur quotas configure karna
+- **Visual Rules Builder:** Income limits, marks cutoffs aur statutory quotas configure karna
 - **PRAMAAN Engine & SHA-256 Audit Trail:** Dual-path verification aur cryptographic ledger
 
 🔹 **Students & Scholars ke liye:**

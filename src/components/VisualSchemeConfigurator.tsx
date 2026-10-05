@@ -201,7 +201,7 @@ export const VisualSchemeConfigurator: React.FC<VisualSchemeConfiguratorProps> =
             { key: 'pfms', title: 'PFMS Bank Mandate Validation', timelineDays: 15, mandatory: true, submissionType: 'CREDENTIAL_CHECK' }
           ]
         },
-        notes: `Visually configured by ${currentUser.name} (${currentUser.role}) via No-Code Rules Studio.`
+        notes: `Statutory policy parameters configured by ${currentUser.name} (${currentUser.role}).`
       });
 
       setSaveSuccess(true);
