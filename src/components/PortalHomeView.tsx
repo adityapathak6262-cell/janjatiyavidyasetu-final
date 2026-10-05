@@ -22,6 +22,7 @@ import {
   Users,
   CreditCard,
   Building,
+  ExternalLink,
   UserCheck,
   Calendar,
   FileDown,
@@ -751,6 +752,150 @@ export const PortalHomeView: React.FC<PortalHomeViewProps> = ({
             </div>
           ))}
         </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 5. OFFICIAL MoTA CAMPAIGN ADVERTISEMENT & MINISTERIAL LEADERSHIP         */}
+      {/* Matches Official Ministry of Tribal Affairs (tribal.nic.in) Portal       */}
+      {/* ========================================================================= */}
+      <div className="space-y-6 pt-2">
+        
+        {/* A. 12-Year Tribal Development Campaign Advertisement Banner */}
+        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 shadow-xs bg-white group">
+          <div className="relative w-full overflow-hidden bg-slate-900">
+            <img
+              src="/mota-12-years-banner-hd.png"
+              alt="12 Years of Trust, Development, and Tribal Welfare - Ministry of Tribal Affairs, Government of India"
+              className="w-full h-auto object-cover object-center select-none transition-transform duration-700 group-hover:scale-[1.01]"
+            />
+          </div>
+
+          {/* Carousel Dot Indicators (Matching Official MoTA Portal) */}
+          <div className="py-2.5 bg-gradient-to-r from-slate-50 via-white to-slate-50 border-t border-slate-100 flex items-center justify-center gap-2 select-none">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#f37021] ring-2 ring-[#f37021]/30 transition-all cursor-pointer"></span>
+            <span className="w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer"></span>
+            <span className="w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer"></span>
+            <span className="w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer"></span>
+            <span className="w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer"></span>
+          </div>
+        </div>
+
+        {/* B. Ministry of Tribal Affairs: Leadership & Historical Background */}
+        <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-xs p-5 sm:p-7">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            
+            {/* Left Minister Card: Shri Jual Oram (Cabinet Minister) */}
+            <div className="lg:col-span-3 bg-slate-50/80 rounded-2xl border border-slate-200/80 p-4 flex flex-col items-center justify-between text-center group hover:border-[#0084d1]/40 transition shadow-2xs">
+              <div className="w-full flex flex-col items-center">
+                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-white shadow-sm bg-white mb-3">
+                  <img
+                    src="/minister-jual-oram-hd.png"
+                    alt="Shri Jual Oram - Hon'ble Minister of Tribal Affairs"
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <h4 className="text-xs sm:text-sm font-black text-slate-900 leading-tight">
+                  {currentLang === 'HI' ? 'श्री जुएल ओराम' : 'Shri Jual Oram'}
+                </h4>
+                <p className="text-[11px] font-bold text-[#0084d1] mt-0.5">
+                  {currentLang === 'HI' ? 'माननीय मंत्री' : "Hon'ble Cabinet Minister"}
+                </p>
+                <p className="text-[10px] text-slate-500 font-medium">
+                  {currentLang === 'HI' ? 'जनजातीय कार्य मंत्रालय' : 'Ministry of Tribal Affairs'}
+                </p>
+              </div>
+
+              {/* Social Connect Icons */}
+              <div className="flex items-center gap-2.5 mt-3 pt-2.5 border-t border-slate-200/60 w-full justify-center text-slate-400">
+                <a href="https://twitter.com/jualoram" target="_blank" rel="noopener noreferrer" className="p-1 hover:text-[#0084d1] transition" title="X / Twitter">
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://facebook.com/jualoram" target="_blank" rel="noopener noreferrer" className="p-1 hover:text-[#1877f2] transition" title="Facebook">
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Middle Content: About the Ministry (Historical Background) */}
+            <div className="lg:col-span-6 flex flex-col justify-between py-1">
+              <div>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <div className="h-1.5 w-6 bg-[#0084d1] rounded-full"></div>
+                  <h3 className="text-sm sm:text-base font-black text-slate-900 tracking-tight">
+                    {currentLang === 'HI' ? 'मंत्रालय के बारे में' : 'About the Ministry'}
+                  </h3>
+                </div>
+                <h4 className="text-xs font-bold text-slate-700 mb-2">
+                  {currentLang === 'HI' ? 'ऐतिहासिक पृष्ठभूमि एवं अधिदेश' : 'Historical Background & Mandate'}
+                </h4>
+                
+                <div className="text-[11px] sm:text-xs text-slate-600 space-y-2 leading-relaxed text-justify">
+                  <p>
+                    {currentLang === 'HI' 
+                      ? 'जनजातीय कार्य मंत्रालय का गठन 1999 में सामाजिक न्याय एवं अधिकारिता मंत्रालय के द्वि-विभाजन के उपरांत किया गया था और इसका उद्देश्य एक समन्वित और सुनियोजित तरीके से भारतीय समाज के अत्यंत वंचित वर्ग अर्थात् अनुसूचित जनजातियों (एसटी) के समग्र सामाजिक-आर्थिक विकास पर अधिक ध्यान केंद्रित करना है। इस मंत्रालय के गठन के पहले जनजातीय मामले अलग-अलग समय में विभिन्न मंत्रालयों द्वारा निपटाए जाते थे।'
+                      : 'The Ministry of Tribal Affairs was constituted in 1999 subsequent to the bifurcation of the Ministry of Social Justice and Empowerment, with the objective of providing a focused approach on the integrated socio-economic development of Scheduled Tribes (STs) in a coordinated and planned manner.'}
+                  </p>
+                  <p>
+                    {currentLang === 'HI'
+                      ? 'जनजातीय कार्य मंत्रालय अनुसूचित जनजातियों के विकास कार्यक्रमों की समग्र नीति, आयोजना एवं समन्वयन के लिए एक नोडल मंत्रालय है। यह मंत्रालय शिक्षा (छात्रवृत्तियां), आजीविका, संस्कृति एवं वन अधिकार अधिनियम (FRA) के प्रभावी क्रियान्वयन हेतु समर्पित है।'
+                      : 'As the nodal Ministry, it steers policies, planning, and scholarship distribution to empower 705+ tribal communities across the nation under the constitutional vision of equitable growth.'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-3.5 flex items-center justify-between border-t border-slate-100 mt-3">
+                <a
+                  href="https://tribal.nic.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-sky-600 to-[#0084d1] hover:from-sky-700 hover:to-[#0074b8] text-white text-xs font-bold rounded-xl transition shadow-xs cursor-pointer group"
+                >
+                  <span>{currentLang === 'HI' ? 'और देखें...' : 'Read More on tribal.nic.in'}</span>
+                  <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+
+                <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span>Official Government Portal</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Minister Card: Shri Durgadas Uikey (Minister of State) */}
+            <div className="lg:col-span-3 bg-slate-50/80 rounded-2xl border border-slate-200/80 p-4 flex flex-col items-center justify-between text-center group hover:border-[#0084d1]/40 transition shadow-2xs">
+              <div className="w-full flex flex-col items-center">
+                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-white shadow-sm bg-white mb-3">
+                  <img
+                    src="/minister-durgadas-uikey-hd.png"
+                    alt="Shri Durgadas Uikey - Hon'ble Minister of State for Tribal Affairs"
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <h4 className="text-xs sm:text-sm font-black text-slate-900 leading-tight">
+                  {currentLang === 'HI' ? 'श्री दुर्गादास उइके' : 'Shri Durgadas Uikey'}
+                </h4>
+                <p className="text-[11px] font-bold text-[#0084d1] mt-0.5">
+                  {currentLang === 'HI' ? 'माननीय राज्य मंत्री' : "Hon'ble Minister of State (MoS)"}
+                </p>
+                <p className="text-[10px] text-slate-500 font-medium">
+                  {currentLang === 'HI' ? 'जनजातीय कार्य मंत्रालय' : 'Ministry of Tribal Affairs'}
+                </p>
+              </div>
+
+              {/* Social Connect Icons */}
+              <div className="flex items-center gap-2.5 mt-3 pt-2.5 border-t border-slate-200/60 w-full justify-center text-slate-400">
+                <a href="https://twitter.com/durgadasuikey" target="_blank" rel="noopener noreferrer" className="p-1 hover:text-[#0084d1] transition" title="X / Twitter">
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://facebook.com/durgadasuikey" target="_blank" rel="noopener noreferrer" className="p-1 hover:text-[#1877f2] transition" title="Facebook">
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
       {/* ========================================================================= */}
